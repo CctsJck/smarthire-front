@@ -7,7 +7,6 @@ export const Login = () =>{
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("") 
 
-
     function handleSubmit(e){
         e.preventDefault()
 
