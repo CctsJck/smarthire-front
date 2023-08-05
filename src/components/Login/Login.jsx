@@ -1,25 +1,42 @@
 import React, { useState } from 'react'
-import './CreateUser.css'
+import axios from 'axios'
+import './Login.css'
 
 
-export const CreateUser = () =>{
+export const Login = () =>{
     const [email, setEmail] = useState("")
     const [pass, setPass] = useState("") 
 
 
     function handleSubmit(e){
+        e.preventDefault()
 
-        let config = {
+        var data = {
+            "email": email,
+            "password": pass
+        }
+
+
+        var config = {
             method: 'post',
-            url: `https://${process.env.REACT_APP_API_URL}/users/roles/ROLE_ACCOUNTABLE`,
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-            }
-        };
+            url: `http://localhost:5000/login`,
+            headers: {  
+                'Access-Control-Allow-Origin':'*',
+                'Content-Type': 'application/json'
+            },
+            data : data
 
-        axios
+        };
+        axios(config)
+        .then((response) => 
+            sessionStorage.setItem('token', response.headers.getAuthorization))
+
+
+        console.log(sessionStorage.getItem('token'))
 
     }
+
+
 
     return(
         <>
@@ -39,7 +56,7 @@ export const CreateUser = () =>{
                     onChange={e => setPass(e.target.value)}
                 />
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="submit" onClick = {handleSubmit} class="btn btn-primary">Submit</button>
         </form>
 
         </div>
