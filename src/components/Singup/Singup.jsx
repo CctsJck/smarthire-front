@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import axios from 'axios'
+import { Header } from '../Header/Header'
 
 export const Singup = () =>{
     const [name, setName] = useState("")
@@ -42,6 +43,7 @@ export const Singup = () =>{
     }
     return(
         <>
+        <Header></Header>
         <div class = "container-md">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Ingrese su nombre</label>
