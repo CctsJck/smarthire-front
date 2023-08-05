@@ -1,0 +1,9 @@
+.contenedor {
+    display: flex;
+    justify-content: left;
+
+}
+
+.imagen{
+    text-align: right;
+}
