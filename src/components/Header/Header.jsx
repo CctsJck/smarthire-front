@@ -41,7 +41,7 @@ export const Header = () => {
             </ul>
             <form class="d-flex" role="search">
                 <button type="button" class="btn btn-primary me-2 btn-right">PLACE HOLDER</button>
-                <button type="button" class="btn btn-primary">Cerrar Secion</button>
+                <button type="button" class="btn btn-primary">Cerrar Sesion</button>
             </form>
             </div>
         </div>

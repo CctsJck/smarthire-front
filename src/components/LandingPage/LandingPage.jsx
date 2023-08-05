@@ -1,10 +1,11 @@
 import React from 'react'
 import './LandingPage.css'
+import { Header } from '../Header/Header'
 
 export const LandingPage = () => {
     return(
         <>
-            
+        <Header></Header>     
         <div className='container'>
             <div className='row'>
                 <div className='col'>
