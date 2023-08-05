@@ -24,7 +24,7 @@ export const Createsearch = () =>{
             method: 'post',
             url: `http://localhost:5000/search/`,
             headers: {
-                'Authorization':sessionStorage.getItem('token'),
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
                 'Access-Control-Allow-Origin':'*',
                 'Content-Type': 'application/json'
             },
@@ -33,7 +33,8 @@ export const Createsearch = () =>{
         };
         axios(config)
         .then((response) => 
-            console.log(sessionStorage.getItem('token'))
+            console.log(response)
+            
         )
 
 
