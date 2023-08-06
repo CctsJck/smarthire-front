@@ -29,6 +29,22 @@ export const Login = () => {
       .then(function (response) {
         let token = response.headers.get('authorization');
         sessionStorage.setItem('token', token.split(' ')[1]);
+
+        let config = {
+            method: 'get',
+            url: `http://localhost:5000/recruiter/email/${email} `,
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+            }
+        };
+        axios(config)
+          .then(function (response){
+            sessionStorage.setItem('username',response.data.username)
+            sessionStorage.setItem('email',response.data.email)
+            sessionStorage.setItem('userId',response.data.id)
+            //sessionStorage.setItem('user', response.data.usernm)
+          })
+
       })
       .catch(function (error) {
         // Update the error state with the error message
