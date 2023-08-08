@@ -8,7 +8,8 @@ export const Createquestion = () =>{
     const type = ["Opción 1", "Opción 2", "Opción 3", "Opción 4"];
     const [name, setName] = useState('');
     const [todos, setTodos] = useState([]);
-    const [tipoActividad, setTipoActividad] = useState('');
+    const [tipoActividad, setTipoActividad] = useState('Seleccionar tipo de actividad');
+    
     
     const handleTipoActividadChange = (selectedOption) => {
         setTipoActividad(selectedOption);
@@ -40,6 +41,9 @@ export const Createquestion = () =>{
             {name:name, type:tipoActividad, picture:"foto", idSearch:3},
         ]
         })
+
+        setTipoActividad('Seleccionar tipo de actividad');
+        setName('');
     }
     console.log(todos)
 
@@ -81,13 +85,13 @@ export const Createquestion = () =>{
             <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label" style={{ textAlign: "left" }}>Tipo de actividad</label>
             <div className="dropdown">
-                <select onChange={(e) => handleTipoActividadChange(e.target.value)}>
-                    <option value="">Seleccionar tipo de actividad</option>
-                    {type.map((option, index) => (
+                <select onChange={(e) => handleTipoActividadChange(e.target.value)} value={tipoActividad}>
+                        <option value="">Seleccionar tipo de actividad</option>
+                            {type.map((option, index) => (
                         <option key={index} value={option}>
                             {option}
                         </option>
-                    ))}
+                            ))}
                 </select>
             </div>
                 <div class="mb-3">
