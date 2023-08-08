@@ -5,8 +5,20 @@ import axios from 'axios'
 export const Createquestion = () =>{
 
     const [selectedImage, setSelectedImage] = useState();
+    const type = ["Opción 1", "Opción 2", "Opción 3", "Opción 4"];
+    const [name, setName] = useState('');
+    const [todos, setTodos] = useState([]);
+    const [tipoActividad, setTipoActividad] = useState('');
+    
+    const handleTipoActividadChange = (selectedOption) => {
+        setTipoActividad(selectedOption);
+    };
+
+    const handleTextareaChange = (event) => {
+        setName(event.target.value);
+    };
+    
  
-    // This function will be triggered when the file field change
     const imageChange = (e) => {
         if (e.target.files && e.target.files.length > 0) {
           setSelectedImage(e.target.files[0]);
@@ -20,8 +32,42 @@ export const Createquestion = () =>{
     }
      
 
-    const removeSelectedImage = () => {
-        setSelectedImage();
+    function handleCreatequestion(e){
+        e.preventDefault()
+        setTodos(currentTodos=> {
+            return [
+            ...currentTodos, 
+            {name:name, type:tipoActividad, picture:"foto", idSearch:3},
+        ]
+        })
+    }
+    console.log(todos)
+
+    function handleLoadequestion(e){
+        e.preventDefault()
+
+        var data = todos
+
+        var config = {
+            method: 'post',
+            url: `http://localhost:5000/question/`,
+            headers: {
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+                'Access-Control-Allow-Origin':'*',
+                'Content-Type': 'application/json'
+            },
+            data : data
+
+
+        };
+        console.log(data)
+        axios(config)
+        .then((response) => 
+            console.log(response)
+            
+        )
+
+
     }
 
     return(
@@ -34,33 +80,21 @@ export const Createquestion = () =>{
             <div class = "container-md">
             <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label" style={{ textAlign: "left" }}>Tipo de actividad</label>
-                            <div class="dropdown">
-                <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Open this select menu
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-                </div>
+            <div className="dropdown">
+                <select onChange={(e) => handleTipoActividadChange(e.target.value)}>
+                    <option value="">Seleccionar tipo de actividad</option>
+                    {type.map((option, index) => (
+                        <option key={index} value={option}>
+                            {option}
+                        </option>
+                    ))}
+                </select>
+            </div>
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">Pregunta</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                </div>
-                <div class="form-check form-switch">
-                    <label class="form-check-label" for="flexSwitchCheckDefault">Especial</label>
-                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault"/>
-                </div>
-                <div class="dropdown">
-                    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    Open this select menu
-                    </a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" 
+                    value={name}
+                    onChange={handleTextareaChange}></textarea>
                 </div>
             </div>
             <div className="container" >
@@ -71,23 +105,11 @@ export const Createquestion = () =>{
                 <input type="file" className="form-control" onChange={imageChange} accept="image/*"/>
                 </div> <br/>
                 <center>
-                    <button type="submit" className="btn btn-success" >Finalizar pregunta</button>
+                    <button type="submit" onClick = {handleCreatequestion} className="btn btn-primary" >Finalizar pregunta</button>
+                    <button type="submit" onClick = {handleLoadequestion} className="btn btn-secondary" >Finalizar la carga de preguntas</button>
                 </center>
                 
             </form>
- 
-        {selectedImage && (
-          <div style={styles.preview}>
-            <img
-              src={URL.createObjectURL(selectedImage)}
-              style={styles.image}
-              alt="Thumb"
-            />
-            <button onClick={removeSelectedImage} style={styles.delete}>
-              Remove This Image
-            </button>
-          </div>
-        )}
         </div>
       </div>
             </div>
