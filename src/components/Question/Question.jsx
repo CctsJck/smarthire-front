@@ -18,7 +18,7 @@ export const Question = () => {
     useEffect(() => {
         let config = {
             method: 'get',
-            url: `http://localhost:5000/search/32`, /*ver con gonza (Agregar parametro Route)*/ 
+            url: `http://localhost:5000/search/3`, /*ver con gonza (Agregar parametro Route)*/ 
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
             }
@@ -66,9 +66,12 @@ export const Question = () => {
         console.log("entre a los resultados")
     }
 
-    function editarQuestion(id) {
-        setIdToEdit(id)
-
+    function editarQuestion(id,nombre,tipo,foto,idBusqueda) {
+        sessionStorage.setItem('id', id)
+        sessionStorage.setItem('name', nombre)
+        sessionStorage.setItem('type', tipo)
+        sessionStorage.setItem('picture', foto)
+        
     }
 
 
