@@ -54,7 +54,9 @@ export const Login = () => {
 
   return (
     <>
-      <div className="container-md">
+    <div>
+      <h1 class='text-center'>Iniciar Sesión</h1>
+      <div class='container-md w-25 bg-white mt-5 rounded'>
         <form>
           <div className="mb-3">
             <label htmlFor="exampleInputEmail1" className="form-label">
@@ -85,11 +87,15 @@ export const Login = () => {
               {error} {/* Display the error message */}
             </div>
           </div>
-          <button type="submit" onClick={handleSubmit} className="btn btn-primary">
-            Submit
-          </button>
+          <div class='d-flex justify-content-center'>
+            <button type="submit" onClick={handleSubmit} className="btn btn-primary mb-4 ">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
+      </div>
+
     </>
   );
 };

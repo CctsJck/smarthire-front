@@ -3,9 +3,12 @@ import { BusquedaList } from './BusquedaList/BusquedaList'
 import axios from 'axios';
 import { ModalDelete } from './Validacion/ModalDelete';
 import { useIsRTL } from 'react-bootstrap/esm/ThemeProvider';
+import { useNavigate } from 'react-router-dom';
 
 
 export const Busqueda = () => {
+
+    let navigate = useNavigate();
 
 
     const [busquedas, setBusquedas] = useState([])
@@ -31,8 +34,11 @@ export const Busqueda = () => {
 
         })
         .catch(function (error){
-
+            if (error.response.status === 404)
             setSuccess("No Tiene busquedas")
+            else{
+                navigate("/login")
+            }
         })
 
     },[])
@@ -68,6 +74,8 @@ export const Busqueda = () => {
 
     function editarBusqueda(id) {
         setIdToEdit(id)
+        navigate('/preguntas/'+ id)
+        
 
     }
 

@@ -44,7 +44,7 @@ export const Singup = () =>{
     return(
         <>
         <Header></Header>
-        <div class = "container-md">
+        <div class = "container-md w-25 bg-white mt-5 rounded ">
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Ingrese su nombre</label>
                 <input type="text" class="form-control" id="name" placeholder="example"
@@ -71,19 +71,21 @@ export const Singup = () =>{
                 />
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Nueva password</label>
+                <label for="exampleFormControlInput1" class="form-label">Contraseña</label>
                 <input type="password" class="form-control" id="password1" placeholder="***********"
                 value={password1}
                 onChange={e => setPass1(e.target.value)}
                 />
             </div>
             <div class="mb-3">
-                <label for="exampleFormControlInput1" class="form-label">Nueva password</label>
+                <label for="exampleFormControlInput1" class="form-label">Ingrese nuevamente la contraseña</label>
                 <input type="password" class="form-control" id="password2" placeholder="***********"
                 value={password2}
                 onChange={e => setPass2(e.target.value)}/>
             </div>
-                <button type="submit" onClick = {handleCreateaccount} class="btn btn-primary">Crear Cuenta</button>
+            <div class='d-flex justify-content-center'>
+                <button type="submit" onClick = {handleCreateaccount} class="btn btn-primary mb-4 mt">Crear Cuenta</button>
+            </div>
 
         </div>
         

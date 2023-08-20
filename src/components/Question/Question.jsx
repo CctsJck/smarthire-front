@@ -3,6 +3,7 @@ import { QuestionList } from './QuestionList/QuestionList'
 import axios from 'axios';
 import { ModalDeleteQuestion } from './Validacion/ModalDeleteQuestion';
 import { useIsRTL } from 'react-bootstrap/esm/ThemeProvider';
+import { useParams } from 'react-router-dom';
 
 
 export const Question = () => {
@@ -14,11 +15,12 @@ export const Question = () => {
     const [idToDelete, setIdToDelete] = useState("")
     const [idToEdit, setIdToEdit] = useState("")
     const [success, setSuccess] = useState("")
+    const {searchId} = useParams
 
     useEffect(() => {
         let config = {
             method: 'get',
-            url: `http://localhost:5000/search/32`, /*ver con gonza (Agregar parametro Route)*/ 
+            url: `http://localhost:5000/search/${searchId}`, /*ver con gonza (Agregar parametro Route)*/ 
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
             }

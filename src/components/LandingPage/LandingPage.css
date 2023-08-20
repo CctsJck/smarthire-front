@@ -5,5 +5,11 @@
 }
 
 .imagen{
-    text-align: right;
+    max-width: 10%;
+    height: fit-content;
+
+}
+
+.contenedor-imagen{
+    float: right;
 }
