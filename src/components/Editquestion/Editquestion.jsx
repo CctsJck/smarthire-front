@@ -1,16 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 
 
-export const Createquestion = () =>{
+export const Editquestion = () =>{
 
     const [selectedImage, setSelectedImage] = useState();
     const type = ["Opción 1", "Opción 2", "Opción 3", "Opción 4"];
-    const [name, setName] = useState('');
-    const [todos, setTodos] = useState([]);
-    const [tipoActividad, setTipoActividad] = useState('Seleccionar tipo de actividad');
-    
-    
+    const [name, setName] = useState(sessionStorage.getItem('name'));
+    const [tipoActividad, setTipoActividad] = useState(sessionStorage.getItem('type'));
+
+
     const handleTipoActividadChange = (selectedOption) => {
         setTipoActividad(selectedOption);
     };
@@ -33,27 +32,18 @@ export const Createquestion = () =>{
     }
      
 
-    function handleCreatequestion(e){
-        e.preventDefault()
-        setTodos(currentTodos=> {
-            return [
-            ...currentTodos, 
-            {name:name, type:tipoActividad, picture:"foto", idSearch:3},
-        ]
-        })
-
-        setTipoActividad('Seleccionar tipo de actividad');
-        setName('');
-    }
-    console.log(todos)
-
-    function handleLoadequestion(e){
+    function handleUpdatequestion(e){
         e.preventDefault()
 
-        var data = todos
+        var data = {
+            "id": sessionStorage.getItem('id'),
+            "name": name,
+            "type": tipoActividad,
+            "picture": "picture",   
+        }
 
         var config = {
-            method: 'post',
+            method: 'put',
             url: `http://localhost:5000/question/`,
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
@@ -86,7 +76,6 @@ export const Createquestion = () =>{
             <label for="exampleFormControlInput1" class="form-label" style={{ textAlign: "left" }}>Tipo de actividad</label>
             <div className="dropdown">
                 <select onChange={(e) => handleTipoActividadChange(e.target.value)} value={tipoActividad}>
-                        <option value="">Seleccionar tipo de actividad</option>
                             {type.map((option, index) => (
                         <option key={index} value={option}>
                             {option}
@@ -109,8 +98,7 @@ export const Createquestion = () =>{
                 <input type="file" className="form-control" onChange={imageChange} accept="image/*"/>
                 </div> <br/>
                 <center>
-                    <button type="submit" onClick = {handleCreatequestion} className="btn btn-primary" >Finalizar pregunta</button>
-                    <button type="submit" onClick = {handleLoadequestion} className="btn btn-secondary" >Finalizar la carga de preguntas</button>
+                    <button type="submit" onClick = {handleUpdatequestion} className="btn btn-primary" >Finalizar edicion</button>
                 </center>
                 
             </form>

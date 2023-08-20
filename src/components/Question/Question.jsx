@@ -68,9 +68,12 @@ export const Question = () => {
         console.log("entre a los resultados")
     }
 
-    function editarQuestion(id) {
-        setIdToEdit(id)
-
+    function editarQuestion(id,nombre,tipo,foto,idBusqueda) {
+        sessionStorage.setItem('id', id)
+        sessionStorage.setItem('name', nombre)
+        sessionStorage.setItem('type', tipo)
+        sessionStorage.setItem('picture', foto)
+        
     }
 
 
