@@ -11,6 +11,7 @@ import { Busqueda } from './components/Busqueda/Busqueda'
 import { Createsearch } from './components/Createsearch/Createsearch'
 import {Question} from  './components/Question/Question'
 import { Singup } from './components/Singup/Singup'
+import { VideoTest } from './components/VideoTest/VideoTest'
 
 function App() {
 
@@ -27,6 +28,8 @@ function App() {
       <Route path = "/busquedas" element = {<Busqueda/>}/>
 
       <Route path = "/preguntas/:searchId" element = {<Question/>}/>
+
+      <Route path="/hola" element = {<VideoTest/>}/>
 
     </Routes>
 
