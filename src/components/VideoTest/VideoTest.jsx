@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useRef,useEffect } from 'react'
 import "./VideoTest.css"
+import axios from 'axios'
 import * as faceapi from 'face-api.js'
 
 export const  VideoTest = () =>{
@@ -44,15 +45,16 @@ export const  VideoTest = () =>{
 
         videoData.push(detections[0].expressions)
         console.log(videoData)
-        if (videoData.length === 100){
+        if (videoData.length === 20){
+
+          console.log("asdfasdbfpuadsv aisdcebcfuds f")
 
             var data = videoData
     
             var config = {
                 method: 'post',
-                url: `http://localhost:5000/1/1`, // modificar los ids
+                url: `http://localhost:5000/result/hola/5/4`, // modificar los ids
                 headers: {
-                    'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
                     'Access-Control-Allow-Origin':'*',
                     'Content-Type': 'application/json'
                 },
@@ -71,7 +73,7 @@ export const  VideoTest = () =>{
 
         }
 
-    },1000)
+    },2000)
   }
 
 
