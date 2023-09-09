@@ -54,6 +54,23 @@ export const LandingPage = () => {
 
             </div>
 
+
+
+
+
+
+            <div class="container text-center">
+                <div class="row">
+                    <div class="col align-self-start">
+                    One of three columns
+                    </div>
+                    <div class="col align-self-end">
+                    <h1>HOLA</h1>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam neque quaerat, maiores perspiciatis modi libero quod quas cumque hic itaque nemo eaque impedit, similique ipsum quia, maxime quos ex qui!</p>
+                    </div>
+                </div>
+            </div>
+
             
             <div class = "container-md mt-4">
                 
