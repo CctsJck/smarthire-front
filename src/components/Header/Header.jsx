@@ -10,7 +10,7 @@ export const Header = () => {
 
     return(
         <>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary mb-4">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class = 'container-fluid'>
             <button  type="button" class="btn">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16" onClick={() => console.log("hola")}>
