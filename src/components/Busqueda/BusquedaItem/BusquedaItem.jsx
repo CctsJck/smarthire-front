@@ -3,10 +3,8 @@ import React from 'react'
 export const BusquedaItem = ({id,name,borrarBusqueda,verResultados,editarBusqueda,}) =>{
     return(
     <tr>
-
-
             <th>{name}</th>
-
+            <div class="ml-3">
             <th>
                 <button type="button" class="btn btn-danger" onClick={() => borrarBusqueda(id)} >
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewBox="0 0 16 16">
@@ -26,6 +24,7 @@ export const BusquedaItem = ({id,name,borrarBusqueda,verResultados,editarBusqued
             <th>
                 <button type="button" class="btn btn-success" onClick={() => verResultados(id)}>Resultados</button>
             </th>
+            </div>
 
     </tr>    
 

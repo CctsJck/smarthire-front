@@ -83,14 +83,14 @@ export const Busqueda = () => {
 
     return(
         <>
-        <div class="container-md">
-            <h1>Prueba de map de busquedas</h1>
+        <div class="container-md mt-5">
+            <h1>Mis busquedas activas</h1>
             <BusquedaList busquedas={busquedas}
                 borrarBusqueda ={borrarBusqueda}
                 verResultados={verResultados}
                 editarBusqueda={editarBusqueda}
                 />
-
+                
             <ModalDelete 
                 show={showModal} 
                 onHide={() => setShowModal(false)} 
@@ -98,21 +98,15 @@ export const Busqueda = () => {
                 title='¿Desea eliminar la busqueda?'
                 id={idToDelete}
                 handleBorrado = {handleBorrado}
-
             />
+            
 
 
 
             <div class="position-relative" >
 
                 <p  class="position-absolute top-50 start-50 translate-middle">{success}</p>
-
             </div>
-
-
-
-
-
             
         </div>    
         </>
