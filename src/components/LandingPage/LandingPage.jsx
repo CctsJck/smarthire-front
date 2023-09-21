@@ -24,8 +24,8 @@ export const LandingPage = () => {
                     ¡Los procesos de seleccion nunca fueron tan faciles!
                   </p>
 
-                  <div class="d-grid gap-2 d-sm-flex">
-                    <button type="button" class="btn btn-primary">
+                  <div class="d-flex">
+                    <button type="button" class="btn btn-primary me-2">
                       Get Started
                     </button>
                     <button type="button" class="btn btn-secondary ">
@@ -102,7 +102,7 @@ export const LandingPage = () => {
         </div>
         </div>
 
-        <div class="col-md-12 mt-5 mb-2 card shadow" style={{ bottom: "0"}}>
+        <div class="col-md-12 mb-2 card shadow" style={{ bottom: "0", marginTop:"5%"}}>
             <div class="p-5"> 
                 <h1 class="text-center">Contact</h1>
                 <div class="mb-3">

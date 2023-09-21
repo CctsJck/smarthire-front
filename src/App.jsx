@@ -31,6 +31,16 @@ function App() {
 
       <Route path="/hola" element = {<VideoTest/>}/>
 
+      <Route path="/misbusquedas" element = {<Busqueda/>}/>
+
+      <Route path="/crearBusqueda" element = {<Createsearch/>}/>
+
+      <Route path="/busquedaItem" element = {<BusquedaItem/>}/>
+
+      <Route path="/header" element = {<Header/>}/>
+
+      
+
     </Routes>
 
 
