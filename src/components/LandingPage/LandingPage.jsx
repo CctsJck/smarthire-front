@@ -8,7 +8,6 @@ export const LandingPage = () => {
   return (
     <>
       <Header></Header>
-
       <div
         class="col-md-12 d-flex"
         style={{ backgroundColor: "#97e184", height: "30%" }}
@@ -102,7 +101,7 @@ export const LandingPage = () => {
         </div>
         </div>
 
-        <div class="col-md-12 mb-2 card shadow" style={{ bottom: "0", marginTop:"5%"}}>
+        <div class="col-md-12 mb-2 card shadow" style={{ bottom: "0", marginTop:"5%", zIndex:"-1"}}>
             <div class="p-5"> 
                 <h1 class="text-center">Contact</h1>
                 <div class="mb-3">
