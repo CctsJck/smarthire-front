@@ -12,6 +12,7 @@ import { Createsearch } from './components/Createsearch/Createsearch'
 import {Question} from  './components/Question/Question'
 import { Singup } from './components/Singup/Singup'
 import { VideoTest } from './components/VideoTest/VideoTest'
+import { Dashboard } from './components/Dashboard/Dashboard'
 
 function App() {
 
@@ -38,6 +39,10 @@ function App() {
       <Route path="/busquedaItem" element = {<BusquedaItem/>}/>
 
       <Route path="/header" element = {<Header/>}/>
+
+      <Route path="/dashboard" element = {<Dashboard/>}/>
+
+
 
       
 

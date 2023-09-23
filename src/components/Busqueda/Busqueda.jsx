@@ -69,7 +69,7 @@ export const Busqueda = () => {
     }
 
     function verResultados(id){
-        console.log("entre a los resultados")
+        console.log(id)
     }
 
     function editarBusqueda(id) {
