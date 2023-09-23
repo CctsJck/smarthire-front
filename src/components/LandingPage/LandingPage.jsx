@@ -12,7 +12,7 @@ export const LandingPage = () => {
         class="col-md-12 d-flex"
         style={{ backgroundColor: "#97e184", height: "30%" }}
       >
-        <div className="container">
+        <div className="container" style={{ backgroundColor: "#97e184"}}>
           <div class="col-md-12 d-flex justify-content-start">
             <div class="col-md-6 d-flex justify-content-start py-5">
               <div>
@@ -40,9 +40,8 @@ export const LandingPage = () => {
           </div>
         </div>
       </div>
-      
-      <div className="container mt-5" style={{ backgroundColor: "white"}}>
-        
+      <div className="col-md-12 d-flex my-5" style={{ background:"#ffffff"}}>
+      <div className="container mt-5" style={{ background:"#ffffff"}}>
         <div className="col-md-12 d-flex card shadow">
           <div className="d-flex align-items-center">
             <div className="col-md-6 d-flex justify-content-start">
@@ -82,7 +81,7 @@ export const LandingPage = () => {
           </div>
         </div> 
 
-        <div className="col-md-12 d-flex card shadow mt-5">
+        <div className="col-md-12 d-flex card shadow my-5">
           <div className="d-flex align-items-center">
             <div className="col-md-6 d-flex justify-content-start">
               <img src={candidato} className="" style={{ maxWidth: "100%" }} />
@@ -100,7 +99,7 @@ export const LandingPage = () => {
           </div>
         </div>
         </div>
-      
+        </div>
 
         <div class="col-md-12 mb-2 card shadow" style={{ bottom: "0", marginTop:"5%", zIndex:-1}}>
             <div class="p-5"> 
@@ -123,7 +122,7 @@ export const LandingPage = () => {
                 </div>
             </div>
         </div>
-    
+        
       
     </>
   );

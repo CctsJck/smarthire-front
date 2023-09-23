@@ -1,3 +1,6 @@
+body {
+    background-color: #ffffff;
+}
 .contenedor {
     display: flex;
     justify-content: left;
