@@ -12,6 +12,9 @@ import { Createsearch } from './components/Createsearch/Createsearch'
 import {Question} from  './components/Question/Question'
 import { Singup } from './components/Singup/Singup'
 import { VideoTest } from './components/VideoTest/VideoTest'
+import { CandidateLanding} from './components/CandidateLanding/CandidateLanding'
+import { CandidateSign } from './components/CandidateLanding/CandidateSign'
+import { CandidateResponse } from './components/CandidateLanding/CandidateResponse'
 
 function App() {
 
@@ -38,6 +41,12 @@ function App() {
       <Route path="/busquedaItem" element = {<BusquedaItem/>}/>
 
       <Route path="/header" element = {<Header/>}/>
+
+      <Route path="/candidate/:idBusqueda" element = {<CandidateLanding/>}/>
+
+      <Route path='/candidate/response/:idBusqueda' element = {<CandidateResponse/>}/>
+
+      <Route path="/candidate/sign/:idBusqueda" element = {<CandidateSign/>}/>
 
       
 

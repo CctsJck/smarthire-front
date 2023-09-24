@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useRef,useEffect } from 'react'
-import "./VideoTest.css"
+//import "./VideoTest.css"
 import axios from 'axios'
 import * as faceapi from 'face-api.js'
 
@@ -45,7 +45,7 @@ export const  VideoTest = () =>{
 
         videoData.push(detections[0].expressions)
         console.log(videoData)
-        if (videoData.length === 20){
+        /*if (videoData.length === 20){
 
           console.log("asdfasdbfpuadsv aisdcebcfuds f")
 
@@ -71,7 +71,7 @@ export const  VideoTest = () =>{
     
     
 
-        }
+        }*/
 
     },2000)
   }

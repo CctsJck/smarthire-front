@@ -106,8 +106,8 @@ export const Singup = () =>{
                 {/* Same as */}
             <ToastContainer />
         </div>
-        <div class ="container w-50 bg-white mt-5 rounded">
-            <h1 class='text-center'>Crear Cuenta</h1>
+        <div class ="container card shadow w-50 bg-white mt-5 rounded">
+            <h1 class='text-center pt-3'>Crear Cuenta</h1>
             <div class = "container w-75 pt-3">
                 <form class="needs-validation" id="myform">
                     <div class="mb-3">
