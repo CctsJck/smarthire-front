@@ -15,6 +15,7 @@ import { VideoTest } from './components/VideoTest/VideoTest'
 import { CandidateLanding} from './components/CandidateLanding/CandidateLanding'
 import { CandidateSign } from './components/CandidateLanding/CandidateSign'
 import { CandidateResponse } from './components/CandidateLanding/CandidateResponse'
+import { Dashboard } from './components/Dashboard/Dashboard'
 
 function App() {
 
@@ -47,6 +48,9 @@ function App() {
       <Route path='/candidate/response/:idBusqueda' element = {<CandidateResponse/>}/>
 
       <Route path="/candidate/sign/:idBusqueda" element = {<CandidateSign/>}/>
+      <Route path="/dashboard" element = {<Dashboard/>}/>
+
+
 
       
 
