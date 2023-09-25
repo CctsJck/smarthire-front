@@ -60,7 +60,7 @@ export const CandidateSign = () =>{
                 axios.post(`http://localhost:5000/cv/${response.data.id}`,formData) //Poner el id necesario
                     .then(function(response){
                         console.log(response)
-                        navigate("candidate/")
+                        navigate(`/candidate/response/${params.idBusqueda}/${params.idCandidate}`)
                     })
                 
             })

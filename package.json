@@ -10,11 +10,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@uidotdev/usehooks": "^2.3.1",
     "axios": "^1.4.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "face-api.js": "^0.22.2",
-    "react": "^18.2.0",
+    "react": "^0.0.0-experimental-09285d5a7-20230925",
     "react-bootstrap": "^2.8.0",
     "react-countdown-circle-timer": "^3.2.1",
     "react-datepicker": "^4.16.0",

@@ -16,6 +16,7 @@ import { CandidateLanding} from './components/CandidateLanding/CandidateLanding'
 import { CandidateSign } from './components/CandidateLanding/CandidateSign'
 import { CandidateResponse } from './components/CandidateLanding/CandidateResponse'
 import { Dashboard } from './components/Dashboard/Dashboard'
+import { CandidateEnd } from './components/CandidateLanding/CandidateEnd'
 
 function App() {
 
@@ -45,9 +46,12 @@ function App() {
 
       <Route path="/candidate/:idBusqueda" element = {<CandidateLanding/>}/>
 
-      <Route path='/candidate/response/:idBusqueda' element = {<CandidateResponse/>}/>
+      <Route path='/candidate/response/:idBusqueda/:idCandidate' element = {<CandidateResponse/>}/>
 
       <Route path="/candidate/sign/:idBusqueda" element = {<CandidateSign/>}/>
+
+      <Route path='/candidate/end' element = {<CandidateEnd/>}/>
+
       <Route path="/dashboard" element = {<Dashboard/>}/>
 
 
