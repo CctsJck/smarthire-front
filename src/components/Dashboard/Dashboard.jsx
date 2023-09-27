@@ -218,13 +218,7 @@ export const Dashboard = () => {
           </div>
         ) : null}
       </div>
-      <button
-        type="button"
-        className="btn btn-primary custom-btn mx-2 my-1"
-        onClick={handleFiltroSelect}
-      >
-        Cambiar estados
-      </button>
+      
     </>
   );
 };
