@@ -4,3 +4,9 @@ body {
 .custom-btn{
     width: auto;
 }
+
+/* En Dashboard.css */
+.hidden {
+    display: none;
+  }
+  

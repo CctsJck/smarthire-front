@@ -1,25 +1,39 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { ModalPregunta } from "./ModalPregunta/ModalPregunta";
+import { ModalFiltro } from "./ModalFiltro/ModalFiltro";
 import axios from "axios";
 
 export const Dashboard = () => {
   const [showModal, setShowModal] = React.useState(false);
+  const [showModalFiltro, setShowModalFiltro] = React.useState(false);
   const [busqueda, setBusqueda] = useState({});
   const [bandera, setBandera] = useState(false);
   const [resultados, setResultados] = useState([]);
-  const [order, setOrder] = useState("ASC")
+  const [order, setOrder] = useState("ASC");
+
+  const [Felicidad, setFelicidad] = useState(true);
+  const [Enojo, setEnojo] = useState(true);
+  const [Disgusto, setDisgusto] = useState(true);
+  const [Miedo, setMiedo] = useState(true);
+  const [Tristeza, setTristeza] = useState(true);
+  const [Sorpresa, setSorpresa] = useState(true);
+
   const sorting = (col) => {
     if (order === "ASC") {
       const sorted = [...resultados].sort((a, b) =>
-        a[col].toString().toLowerCase() > b[col].toString().toLowerCase() ? 1 : -1
+        a[col].toString().toLowerCase() > b[col].toString().toLowerCase()
+          ? 1
+          : -1
       );
       setResultados(sorted);
       setOrder("DSC");
     }
     if (order === "DSC") {
       const sorted = [...resultados].sort((a, b) =>
-        a[col].toString().toLowerCase() < b[col].toString().toLowerCase() ? 1 : -1
+        a[col].toString().toLowerCase() < b[col].toString().toLowerCase()
+          ? 1
+          : -1
       );
       setResultados(sorted);
       setOrder("ASC");
@@ -29,6 +43,11 @@ export const Dashboard = () => {
   function elegirPregunta() {
     setResultados([]);
     setShowModal(true);
+  }
+
+  function aplicarFiltro(){
+    
+    setShowModalFiltro(true);
   }
 
   useEffect(() => {
@@ -46,7 +65,7 @@ export const Dashboard = () => {
         setBusqueda(response.data);
       })
       .catch(function (error) {
-        if (error.response.status === 404) setSuccess("No Tiene busquedas");
+        if (error.response.status === 404) setSuccess("No Tiene búsquedas");
         else {
           navigate("/login");
         }
@@ -60,7 +79,6 @@ export const Dashboard = () => {
   }, [busqueda]);
 
   function handlePreguntaSelect(pregunta) {
-    console.log(pregunta);
 
     let config = {
       method: "get",
@@ -81,13 +99,29 @@ export const Dashboard = () => {
           navigate("/login");
         }
       });
+
+      setFelicidad(true);
+      setEnojo(true);
+      setDisgusto(true);
+      setMiedo(true);
+      setTristeza(true);
+      setSorpresa(true);
+  }
+
+  function handleFiltroSelect(tristezaChecked,enojoChecked,disgustoChecked,miedoChecked,sorpresaChecked,felicidadChecked) {
+    setFelicidad(felicidadChecked);
+    setEnojo(enojoChecked);
+    setDisgusto(disgustoChecked);
+    setMiedo(miedoChecked);
+    setTristeza(tristezaChecked);
+    setSorpresa(sorpresaChecked);
   }
 
   return (
     <>
       <div className="d-flex justify-content-start align-items-center mx-5 mt-4">
         <div className="col-md-10 d-flex mx-5 mt-4">
-          <h1 class="mx-5">{busqueda.name}</h1>
+          <h1 className="mx-5">{busqueda.name}</h1>
         </div>
       </div>
       <div className="d-flex justify-content-center align-items-center mx-2">
@@ -96,8 +130,8 @@ export const Dashboard = () => {
             Elegir pregunta la pregunta a analizar, para ver las respuestas de
             los candidatos
           </h3>
-          <div class="d-flex justify-content-center align-items-center">
-            <div class="col-md-3 d-flex mb-4">
+          <div className="d-flex justify-content-center align-items-center">
+            <div className="col-md-3 d-flex mb-4">
               <button
                 type="button"
                 className="btn btn-primary custom-btn mx-5 my-3"
@@ -109,6 +143,19 @@ export const Dashboard = () => {
           </div>
         </div>
       </div>
+      <div className="d-flex justify-content-center mx-2">
+        <div className="col-md-10 d-flex mt-2 card align-items-center">
+          <h3 className="d-flex justify-content-center mt-4">Filtros</h3>
+          <button
+            type="button"
+            className="btn btn-primary custom-btn mx-2 my-1"
+            onClick={aplicarFiltro}
+          >
+            +
+          </button>
+        </div>
+      </div>
+
       {bandera ? (
         <ModalPregunta
           show={showModal}
@@ -121,41 +168,59 @@ export const Dashboard = () => {
         <></>
       )}
 
-      <div className="tabla-resultados">
-        {
-          resultados.length > 0 ? (
-            <div className="d-flex justify-content-center align-items-center mx-2">
-              <div className="col-md-10 d-flex mt-3 card">
-                <table>
-                  <thead>
-                    <th onClick={()=>sorting("name")}>Candidato</th>
-                    <th onClick={()=>sorting("happy")}>Felicidad</th>
-                    <th onClick={()=>sorting("angry")}>Enojo</th>
-                    <th onClick={()=>sorting("disgust")}>Disgusto</th>
-                    <th onClick={()=>sorting("fear")}>Miedo</th>
-                    <th onClick={()=>sorting("sad")}>Tristeza</th>
-                    <th onClick={()=>sorting("surprise")}>Sorpresa</th>
-                  </thead>
-                  <tbody>
-                    {resultados.map((result)=>(
-                        <tr key={result.id}>
-                            <td>{result.candidate.name+' '+result.candidate.surename}</td>
-                            <td>{result.happy}</td>
-                            <td>{result.angry}</td>
-                            <td>{result.disgust}</td>
-                            <td>{result.fear}</td>
-                            <td>{result.sad}</td>
-                            <td>{result.surprise}</td>
-                        </tr>
+      <ModalFiltro
+        show={showModalFiltro}
+        onHide={() => setShowModalFiltro(false)}
+        title="Filtros"
+        preguntas={busqueda.questions}
+        handleFiltroSelect={handleFiltroSelect}
+        Felicidad = {Felicidad}
+        Enojo = {Enojo}
+        Disgusto = {Disgusto}
+        Miedo = {Miedo}
+        Tristeza = {Tristeza}
+        Sorpresa = {Sorpresa}
+      />
 
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+      <div className="tabla-resultados">
+        {resultados.length > 0 ? (
+          <div className="d-flex justify-content-center align-items-center mx-2">
+            <div className="col-md-10 d-flex mt-3 card">
+              <table>
+                <thead>
+                  <tr>
+                    <th onClick={() => sorting("name")}>Candidato</th>
+                    <th onClick={() => sorting("happy")} className={Felicidad ? "" : "hidden"}>Felicidad</th>
+                    <th onClick={() => sorting("angry")} className={Enojo ? "" : "hidden"}>Enojo</th>
+                    <th onClick={() => sorting("disgust")} className={Disgusto ? "" : "hidden"}>Disgusto</th>
+                    <th onClick={() => sorting("fear")} className={Miedo ? "" : "hidden"}>Miedo</th>
+                    <th onClick={() => sorting("sad")} className={Tristeza ? "" : "hidden"}>Tristeza</th>
+                    <th onClick={() => sorting("surprise")} className={Sorpresa ? "" : "hidden"}>Sorpresa</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {resultados.map((result) => (
+                    <tr key={result.id}>
+                      <td>
+                        {result.candidate.name + " " + result.candidate.surename}
+                      </td>
+                      <td className={Felicidad ? "" : "hidden"}>{result.happy}</td>
+                      <td className={Enojo ? "" : "hidden"}>{result.angry}</td>
+                      <td className={Disgusto ? "" : "hidden"}>{result.disgust}</td>
+                      <td className={Miedo ? "" : "hidden"}>{result.fear}</td>
+                      <td className={Tristeza ? "" : "hidden"}>{result.sad}</td>
+                      <td className={Sorpresa ? "" : "hidden"}>{result.surprise}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
-          ) : null /* Agrega una parte para el caso contrario si es necesario */
-        }
+          </div>
+        ) : null}
       </div>
+      
     </>
   );
 };
+
+export default Dashboard;
