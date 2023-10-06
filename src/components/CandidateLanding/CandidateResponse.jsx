@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "./VideoTest.css";
 import * as faceapi from "face-api.js";
 import axios from "axios";
@@ -8,8 +8,7 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 /*Falta:
     - Centrar el timer(BENJA)
     - Boton de Comenzar(Con o sin Modal)
-    - Terminar
-    - Registrar solo cuando el candidato responde*/
+    - Terminar*/
 
 export const CandidateResponse = () => {
   const [busqueda, setBusqueda] = useState("");
@@ -20,10 +19,13 @@ export const CandidateResponse = () => {
   const [timerDuration, setTimerDuration] = useState(10);
   const [btnState, setBtnState] = useState(true); //Modifica el estado del boton
   const [endPregunta, setEndPregunta] = useState(true);
+  const [key, setKey] = useState(0);
 
   const videoRef = useRef();
   const canvasRef = useRef();
   const [videoData, setVideoData] = useState([]);
+
+  let navigate = useNavigate();
 
   const renderTime = ({ remainingTime }) => {
     // Funcion que se encarga de despregar el tiempo del timer
@@ -46,25 +48,30 @@ export const CandidateResponse = () => {
 
   useEffect(() => {
     startVideo();
-    videoRef &&     Promise.all([
+    videoRef &&
+      Promise.all([
         faceapi.nets.tinyFaceDetector.loadFromUri("/models"),
         faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
         faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
         faceapi.nets.faceExpressionNet.loadFromUri("/models"),
       ]).then(() => {
-          setInterval(async () => {
-              try{
-                  const detections = await faceapi
-                    .detectAllFaces(videoRef.current, new faceapi.TinyFaceDetectorOptions())
-                    .withFaceExpressions();
-                    console.log(detections[0].expressions)
-                    setVideoData((prevItems) => [...prevItems, detections[0].expressions]);
-              }catch{
-                console.log("hola")
-              }
-                
-                
-            }, 2000);
+        setInterval(async () => {
+          try {
+            const detections = await faceapi
+              .detectAllFaces(
+                videoRef.current,
+                new faceapi.TinyFaceDetectorOptions()
+              )
+              .withFaceExpressions();
+            console.log(detections[0].expressions);
+            setVideoData((prevItems) => [
+              ...prevItems,
+              detections[0].expressions,
+            ]);
+          } catch {
+            console.log("hola");
+          }
+        }, 2000);
       });
   }, []);
 
@@ -78,7 +85,6 @@ export const CandidateResponse = () => {
         console.log(err);
       });
   };
-
 
   useEffect(() => {
     let config = {
@@ -99,17 +105,14 @@ export const CandidateResponse = () => {
 
   function handleClick(e) {
     e.preventDefault();
-    console.log("asdfasdfasd");
-    console.log(preguntas);
     if (cont < preguntas.length - 1) {
       setCont(cont + 1);
       setBtnState(true); //Cambio el estado del boton para que no se puede continuar a la siguiente pregunta
       setEndPregunta(true);
-      setVideoData([])
-      console.log("El array tiene que venir")
-      console.log(videoData)
+      setVideoData([]);
+      setKey((prevKey) => prevKey + 1); //Reinicia el timer
     } else if (cont === preguntas.length - 1) {
-      //fin
+      navigate("/candidate/end");
     }
   }
 
@@ -122,7 +125,7 @@ export const CandidateResponse = () => {
 
     var config = {
       method: "post",
-      url: `http://localhost:5000/result/hola/${params.idCandidate}/${preguntas[cont].id}`, // Me devuelve los ids necesarios
+      url: `http://localhost:5000/result/${params.idCandidate}/${preguntas[cont].id}`, // Me devuelve los ids necesarios
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
@@ -135,45 +138,62 @@ export const CandidateResponse = () => {
 
   return (
     <div class="container text-center">
-      <h1 class="mt-4">{busqueda}</h1>
-      <div className="row">
-        <div class="col">
-          <h1>{preguntas.length > 0 ? preguntas[cont].name : "Cargando..."}</h1>
-          <CountdownCircleTimer
-            isPlaying
-            duration={timerDuration}
-            colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-            colorsTime={[10, 6, 3, 0]}
-            onComplete={handleTimerEnd} //Accion a reliazar (desactivar el boton o un modal)
-          >
-            {renderTime}
-          </CountdownCircleTimer>
-          <h4 hidden={endPregunta}>¡Se acabo el tiempo!</h4>
-          <p hidden={endPregunta}>
-            Presione el boton para pasar a la siguiente pregunta
-          </p>
-        </div>
-        <div class="col">
-          <div className="appvide">
-            <video crossOrigin="anonymus" ref={videoRef} autoPlay></video>
-          </div>
-          <canvas
-            ref={canvasRef}
-            width="940"
-            height="650"
-            className="appcanvas"
-          />
-          <h1>HOLA</h1>
-        </div>
+      <div class='d-inline-flex card rounded pt-2 pb-2 ps-4 pe-4 mt-2 mb-2'>
+      <h1>{busqueda}</h1>
       </div>
-      <div>
-        <button
-          class="btn btn-success"
-          disabled={btnState}
-          onClick={handleClick}
-        >
-          Siguiente Pregunra
-        </button>
+      <div class="card p-4 shadow">
+        <div className="row">
+          <div class="col d-flex flex-column">
+            <div>
+              <h1>
+                {preguntas.length > 0 ? preguntas[cont].name : "Cargando..."}
+              </h1>
+              <div className="timer-wrapper">
+              <CountdownCircleTimer
+                key={key}
+                isPlaying
+                duration={timerDuration}
+                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                colorsTime={[10, 6, 3, 0]}
+                onComplete={handleTimerEnd} //Accion a reliazar (desactivar el boton o un modal)
+              >
+                {renderTime}
+              </CountdownCircleTimer>
+              </div>
+            </div>
+            <div className="mt-auto">
+              <h4 hidden={endPregunta}>¡Se acabo el tiempo!</h4>
+              <p hidden={endPregunta}>
+                Presione el boton para pasar a la siguiente pregunta
+              </p>
+            </div>
+          </div>
+          <div class="col d-flex flex-column border-start border-2 border-success">
+            <div>
+              <video
+                class="border border-dark border-3 rounded"
+                crossOrigin="anonymus"
+                ref={videoRef}
+                autoPlay
+              ></video>
+            </div>
+            <canvas
+              ref={canvasRef}
+              width="1000"
+              height="1000"
+              className="appcanvas"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            class="btn btn-success mt-3"
+            disabled={btnState}
+            onClick={handleClick}
+          >
+            Siguiente Pregunta
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -1,115 +1,111 @@
-import React, { useEffect, useState } from 'react'
-import { BusquedaList } from './BusquedaList/BusquedaList'
-import axios from 'axios';
-import { ModalDelete } from './Validacion/ModalDelete';
-import { useIsRTL } from 'react-bootstrap/esm/ThemeProvider';
-import { useNavigate } from 'react-router-dom';
-
+import React, { useEffect, useState } from "react";
+import { BusquedaList } from "./BusquedaList/BusquedaList";
+import axios from "axios";
+import { ModalDelete } from "./Validacion/ModalDelete";
+import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
+import { useNavigate } from "react-router-dom";
 
 export const Busqueda = () => {
+  let navigate = useNavigate();
 
-    let navigate = useNavigate();
+  const [busquedas, setBusquedas] = useState([]);
+  const [showModal, setShowModal] = React.useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [idToDelete, setIdToDelete] = useState("");
+  const [idToEdit, setIdToEdit] = useState("");
+  const [success, setSuccess] = useState("");
 
+  useEffect(() => {
+    let config = {
+      method: "get",
+      url: `http://localhost:5000/search/recruiter/${sessionStorage.getItem(
+        "userId"
+      )}`,
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    };
 
-    const [busquedas, setBusquedas] = useState([])
-    const [showModal, setShowModal] = React.useState(false);
-    const [showEditModal, setShowEditModal] =useState(false)
-    const [idToDelete, setIdToDelete] = useState("")
-    const [idToEdit, setIdToEdit] = useState("")
-    const [success, setSuccess] = useState("")
+    axios(config)
+      .then(function (response) {
+        console.log(response.data);
+        setBusquedas(response.data);
+      })
+      .catch(function (error) {
+        if (error.response.status === 404) setSuccess("No Tiene busquedas");
+        else {
+          navigate("/login");
+        }
+      });
+  }, []);
 
-    useEffect(() => {
-        let config = {
-            method: 'get',
-            url: `http://localhost:5000/search/recruiter/${sessionStorage.getItem('userId')}`,
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-            }
-        };
+  function borrarBusqueda(id) {
+    console.log("adfasf");
+    setIdToDelete(id);
+    setShowModal(true);
+  }
 
-        axios(config)
-        .then(function(response){
-            console.log(response.data)
-            setBusquedas(response.data)
+  function handleBorrado(id) {
+    console.log("Id de handle borrado:" + id);
 
-        })
-        .catch(function (error){
-            if (error.response.status === 404)
-            setSuccess("No Tiene busquedas")
-            else{
-                navigate("/login")
-            }
-        })
+    let config = {
+      method: "delete",
+      url: `http://localhost:5000/search/${id}`,
+      headers: {
+        Authorization: `Bearer ${sessionStorage.getItem("token")}`,
+      },
+    };
 
-    },[])
+    axios(config).then(function (response) {
+      setSuccess("¡Borrado de la busqueda completo!");
+    });
+  }
 
+  function verResultados(id) {
+    navigate()
+  }
 
-    function borrarBusqueda(id){
+  function editarBusqueda(id) {
+    console.log(id)
+    setIdToEdit(id);
+    navigate("/preguntas/" + id);
+  }
 
-        console.log("adfasf")
-        setIdToDelete(id)
-        setShowModal(true)
-    }
+  return (
+    <>
+      <div class="container text-center">
+        <div class="d-inline-flex card rounded pt-2 pb-2 ps-4 pe-4 mt-2 mb-2">
+          <h1>Mis busquedas activas</h1>
+        </div>
+        <div class='container w-75 card shadow rounded'>
+        <BusquedaList
+          busquedas={busquedas}
+          borrarBusqueda={borrarBusqueda}
+          verResultados={verResultados}
+          editarBusqueda={editarBusqueda}
+        />
 
-    function handleBorrado(id){
-        console.log("Id de handle borrado:" + id)
+        <ModalDelete
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          text="Tenga en cuenta que una vez eliminada los cambios son irreversibles!"
+          title="¿Desea eliminar la busqueda?"
+          id={idToDelete}
+          handleBorrado={handleBorrado}
+        />
+        </div>
 
-        let config = {
-            method: 'delete',
-            url: `http://localhost:5000/search/${id}`,
-            headers: {
-                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-            }
-        };
+        <div class="position-relative">
+          <p class="position-absolute top-50 start-50 translate-middle">
+            {success}
+          </p>
+          <div class ='mt-3'>
+            <button class='btn btn-danger m-1' onClick={() => navigate("/")}>Volver al menu</button>
+            <button class='btn btn-primary m-1' onClick={() => navigate("/crearbusqueda")}>Crear una Búsqueda</button>
+          </div>
 
-        axios(config)
-            .then(function(response){
-                setSuccess("¡Borrado de la busqueda completo!")
-            })
-    }
-
-    function verResultados(id){
-        console.log(id)
-    }
-
-    function editarBusqueda(id) {
-        setIdToEdit(id)
-        navigate('/preguntas/'+ id)
-        
-
-    }
-
-
-
-    return(
-        <>
-        <div class="container-md mt-5">
-            <h1>Mis busquedas activas</h1>
-            <BusquedaList busquedas={busquedas}
-                borrarBusqueda ={borrarBusqueda}
-                verResultados={verResultados}
-                editarBusqueda={editarBusqueda}
-                />
-                
-            <ModalDelete 
-                show={showModal} 
-                onHide={() => setShowModal(false)} 
-                text="Tenga en cuenta que una vez eliminada los cambios son irreversibles!"
-                title='¿Desea eliminar la busqueda?'
-                id={idToDelete}
-                handleBorrado = {handleBorrado}
-            />
-            
-
-
-
-            <div class="position-relative" >
-
-                <p  class="position-absolute top-50 start-50 translate-middle">{success}</p>
-            </div>
-            
-        </div>    
-        </>
-    )
-
-}
+        </div>
+      </div>
+    </>
+  );
+};

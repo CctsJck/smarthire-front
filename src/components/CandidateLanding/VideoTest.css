@@ -7,3 +7,8 @@
     position: absolute;
     top: 100px;
 }
+
+.timer-wrapper {
+    display: flex;
+    justify-content: center;
+  }

@@ -60,7 +60,7 @@ export const Header = () => {
                     <div class="cont-menu">
                         <nav>
                             <a href="#">Cerrar sesion</a>
-                            <a href="#">Crear busqueda</a>
+                            <a href="#" onClick={() => navigate("/crearbusqueda")}>Crear busqueda</a>
                             <a href="#">Algo mas</a>
                         </nav>
                         <label for="btn-menu" class="icon-equis mx-2">x</label>

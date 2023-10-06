@@ -1,7 +1,7 @@
 import React from 'react'
 import { QuestionItem } from '../QuestionItem/QuestionItem'
 
-export const QuestionList = ({questions,borrarQuestion,verResultados,editarQuestion,}) =>{
+export const QuestionList = ({questions,borrarQuestion,editarQuestion,}) =>{
     return(
         <table class="table">
             <thead>
@@ -9,7 +9,6 @@ export const QuestionList = ({questions,borrarQuestion,verResultados,editarQuest
                 <th scope="col">Nombre</th>
                 <th scope="col">Eliminar</th>
                 <th scope='col'>Editar</th>
-                <th scope='col'>Resultados</th>
                 </tr>
             </thead>
             <tbody>
@@ -21,7 +20,6 @@ export const QuestionList = ({questions,borrarQuestion,verResultados,editarQuest
                             {...question}
                             key={question.id}
                             borrarQuestion ={borrarQuestion}
-                            verResultados={verResultados}
                             editarQuestion={editarQuestion}
                             />
                         )

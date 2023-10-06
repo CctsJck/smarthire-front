@@ -3,7 +3,6 @@ import { BusquedaItem } from '../BusquedaItem/BusquedaItem'
 
 export const BusquedaList = ({busquedas,borrarBusqueda,verResultados,editarBusqueda,}) =>{
     return(
-        <div class="col-md-12 mt-5">
         <table class="table">
             <thead>
                 <tr>
@@ -30,6 +29,5 @@ export const BusquedaList = ({busquedas,borrarBusqueda,verResultados,editarBusqu
                 
             </tbody>
         </table>
-        </div>
     )
 }

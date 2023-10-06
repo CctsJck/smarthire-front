@@ -8,7 +8,13 @@ export const CandidateSign = () =>{
     const [apellido,setApellido] = useState('')
     const [file,setFile] = useState(null);
     const params = useParams();
+    const [candidateId, setCandidateId] = useState("");
     let navigate = useNavigate();
+
+
+    useEffect(() => {
+        console.log("candidato Updateado:", candidateId);
+      }, [candidateId]);
 
    /* useEffect(() => {
         let config = {
@@ -28,6 +34,11 @@ export const CandidateSign = () =>{
         })
 
     },[])*/
+
+    function navegar(){
+        console.log(candidateId)
+        //navigate(`/candidate/response/${params.idBusqueda}/${candidateId}`)
+    }
 
     function handleSubmit(e){
         e.preventDefault();
@@ -53,14 +64,17 @@ export const CandidateSign = () =>{
             .then(function(response){
 
                 console.log(response)
+                setCandidateId(response.data.id)
+                console.log(candidateId)
+
+                var candidate = response.data.id
 
                 const formData = new FormData();
                 formData.append("file",file)
         
                 axios.post(`http://localhost:5000/cv/${response.data.id}`,formData) //Poner el id necesario
                     .then(function(response){
-                        console.log(response)
-                        navigate(`/candidate/response/${params.idBusqueda}/${params.idCandidate}`)
+                        navigate(`/candidate/response/${params.idBusqueda}/${candidate}`)
                     })
                 
             })
