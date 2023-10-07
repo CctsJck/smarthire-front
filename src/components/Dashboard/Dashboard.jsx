@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState} from "react";
 import "./Dashboard.css";
+import { useParams } from "react-router-dom";
 import { ModalPregunta } from "./ModalPregunta/ModalPregunta";
 import { ModalFiltro } from "./ModalFiltro/ModalFiltro";
 import axios from "axios";
@@ -11,6 +12,7 @@ export const Dashboard = () => {
   const [bandera, setBandera] = useState(false);
   const [resultados, setResultados] = useState([]);
   const [order, setOrder] = useState("ASC");
+  const params = useParams();
 
   const [Felicidad, setFelicidad] = useState(true);
   const [Enojo, setEnojo] = useState(true);
@@ -18,6 +20,8 @@ export const Dashboard = () => {
   const [Miedo, setMiedo] = useState(true);
   const [Tristeza, setTristeza] = useState(true);
   const [Sorpresa, setSorpresa] = useState(true);
+  const [Neutral, setNeutral] = useState(true);
+
 
   const sorting = (col) => {
     if (order === "ASC") {
@@ -53,7 +57,7 @@ export const Dashboard = () => {
   useEffect(() => {
     let config = {
       method: "get",
-      url: `http://localhost:5000/search/3`,
+      url: `http://localhost:5000/search/${params.idBusqueda}`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -106,15 +110,17 @@ export const Dashboard = () => {
       setMiedo(true);
       setTristeza(true);
       setSorpresa(true);
+      setNeutral(true)
   }
 
-  function handleFiltroSelect(tristezaChecked,enojoChecked,disgustoChecked,miedoChecked,sorpresaChecked,felicidadChecked) {
+  function handleFiltroSelect(tristezaChecked,enojoChecked,disgustoChecked,miedoChecked,sorpresaChecked,felicidadChecked,neutralChecked) {
     setFelicidad(felicidadChecked);
     setEnojo(enojoChecked);
     setDisgusto(disgustoChecked);
     setMiedo(miedoChecked);
     setTristeza(tristezaChecked);
     setSorpresa(sorpresaChecked);
+    setNeutral(neutralChecked);
   }
 
   return (
@@ -180,6 +186,7 @@ export const Dashboard = () => {
         Miedo = {Miedo}
         Tristeza = {Tristeza}
         Sorpresa = {Sorpresa}
+        Neutral = {Neutral}
       />
 
       <div className="tabla-resultados">
@@ -196,6 +203,7 @@ export const Dashboard = () => {
                     <th onClick={() => sorting("fear")} className={Miedo ? "" : "hidden"}>Miedo</th>
                     <th onClick={() => sorting("sad")} className={Tristeza ? "" : "hidden"}>Tristeza</th>
                     <th onClick={() => sorting("surprise")} className={Sorpresa ? "" : "hidden"}>Sorpresa</th>
+                    <th onClick={() => sorting("neutral")} className={Neutral ? "" : "hidden"}>Neutral</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -204,12 +212,13 @@ export const Dashboard = () => {
                       <td>
                         {result.candidate.name + " " + result.candidate.surename}
                       </td>
-                      <td className={Felicidad ? "" : "hidden"}>{result.happy}</td>
-                      <td className={Enojo ? "" : "hidden"}>{result.angry}</td>
-                      <td className={Disgusto ? "" : "hidden"}>{result.disgust}</td>
-                      <td className={Miedo ? "" : "hidden"}>{result.fear}</td>
-                      <td className={Tristeza ? "" : "hidden"}>{result.sad}</td>
-                      <td className={Sorpresa ? "" : "hidden"}>{result.surprise}</td>
+                      <td className={Felicidad ? "" : "hidden"}>{(result.happy* 100).toFixed(2)}%</td>
+                      <td className={Enojo ? "" : "hidden"}>{(result.angry* 100).toFixed(2)}%</td>
+                      <td className={Disgusto ? "" : "hidden"}>{(result.disgust* 100).toFixed(2)}%</td>
+                      <td className={Miedo ? "" : "hidden"}>{(result.fear* 100).toFixed(2)}%</td>
+                      <td className={Tristeza ? "" : "hidden"}>{(result.sad* 100).toFixed(2)}%</td>
+                      <td className={Sorpresa ? "" : "hidden"}>{(result.surprise* 100).toFixed(2)}%</td>
+                      <td className={Neutral ? "" : "hidden"}>{(result.neutral* 100).toFixed(2)}%</td>
                     </tr>
                   ))}
                 </tbody>

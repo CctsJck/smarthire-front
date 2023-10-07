@@ -142,7 +142,7 @@ export const CandidateSign = () =>{
                     </div>
                     <div class='d-flex justify-content-center'>
                     <button type="submit" onClick={handleSubmit} className="btn btn-primary mb-4 ">
-                        Iniciar Sesion
+                        ¡Comenzar!
                     </button>
                     </div>
                 </form>

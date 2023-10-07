@@ -52,7 +52,7 @@ function App() {
 
       <Route path='/candidate/end' element = {<CandidateEnd/>}/>
 
-      <Route path="/dashboard" element = {<Dashboard/>}/>
+      <Route path="/dashboard/:idBusqueda" element = {<Dashboard/>}/>
 
 
 

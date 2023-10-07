@@ -62,7 +62,7 @@ export const Busqueda = () => {
   }
 
   function verResultados(id) {
-    navigate()
+    navigate("/dashboard/" + id)
   }
 
   function editarBusqueda(id) {

@@ -10,6 +10,7 @@
     const [miedoChecked, setMiedoChecked] = React.useState(props.Miedo);
     const [sorpresaChecked, setSorpresaChecked] = React.useState(props.Sorpresa);
     const [felicidadChecked, setFelicidadChecked] = React.useState(props.Felicidad);
+    const [neutralChecked, setNeutralChecked]= React.useState(props.Neutral)
 
     const handleTristezaChange = (event) => {
         setTristezaChecked(event.target.checked);
@@ -34,6 +35,13 @@
     const handleFelicidadChange = (event) => {
         setFelicidadChecked(event.target.checked);
       };
+
+
+    const handleNeutralChange = (event) => {
+        setNeutralChecked(event.target.checked);
+      };
+
+      
 
     
 
@@ -129,12 +137,25 @@
                 Felicidad
                 </label>
             </div>
+            <div className="form-check">
+                <input
+                className="form-check-input"
+                type="checkbox"
+                value=""
+                id="Neutral"
+                checked={neutralChecked}
+                onChange={handleNeutralChange}
+                ></input>
+                <label className="form-check-label" htmlFor="flexCheckDefault">
+                Neutral
+                </label>
+            </div>
             <div className="text-center">
                 <button
                 type="button"
                 className="btn btn-primary custom-btn mx-2 my-1"
                 onClick={() => {
-                    props.handleFiltroSelect(tristezaChecked,enojoChecked,disgustoChecked,miedoChecked,sorpresaChecked,felicidadChecked);
+                    props.handleFiltroSelect(tristezaChecked,enojoChecked,disgustoChecked,miedoChecked,sorpresaChecked,felicidadChecked,neutralChecked);
                     console.log(tristezaChecked)
                     console.log(enojoChecked)
                     console.log(disgustoChecked)
