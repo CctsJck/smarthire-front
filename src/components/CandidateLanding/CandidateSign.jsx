@@ -128,17 +128,11 @@ export const CandidateSign = () =>{
                     </div>
                     <label for="formFile" class="form-label">Ingrese su CV de LinkedIn</label>
                     <div class='mb-3 col-md-12 d-flex'>
-                        <div class = 'col-md-9 d-flex justify-content-start'>
+                        <div class = 'col-md-12 d-flex justify-content-start'>
                             <input class="form-control" type="file" id="formFile" name="file"
                             onChange={(e) => setFile(e.target.files[0])}
                             required></input>
-                        </div>
-                        <div class='col-md-3 d-flex justify-content-end'>
-                            <button class='btn btn-dark' onClick ={()=>console.log("hola")}>
-                            Linked In CV
-                            </button>
-                        </div>
-                        
+                        </div>                
                     </div>
                     <div class='d-flex justify-content-center'>
                     <button type="submit" onClick={handleSubmit} className="btn btn-primary mb-4 ">

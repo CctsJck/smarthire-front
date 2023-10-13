@@ -16,3 +16,7 @@ body {
 .contenedor-imagen{
     float: right;
 }
+
+html {
+    scroll-behavior: smooth;
+}
