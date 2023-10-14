@@ -88,7 +88,10 @@ export const CandidateResponse = () => {
   };
 
   useEffect(() => {
-    let idBusqueda = CryptoJS.AES.decrypt(params.idBusqueda, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+    let idBusqueda = CryptoJS.AES.decrypt(
+      params.idBusqueda,
+      import.meta.env.VITE_SECRET_KEY
+    ).toString(CryptoJS.enc.Utf8);
     let config = {
       method: "get",
       url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`, //ver con gonza (Agregar parametro Route)* ACA ME TRAE LA SEARCH
@@ -125,7 +128,10 @@ export const CandidateResponse = () => {
     setEndPregunta(false);
     var data = videoData;
 
-    let idCandidate = CryptoJS.AES.decrypt(params.idCandidate, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+    let idCandidate = CryptoJS.AES.decrypt(
+      params.idCandidate,
+      import.meta.env.VITE_SECRET_KEY
+    ).toString(CryptoJS.enc.Utf8);
 
     var config = {
       method: "post",
@@ -142,8 +148,8 @@ export const CandidateResponse = () => {
 
   return (
     <div class="container text-center">
-      <div class='d-inline-flex card rounded pt-2 pb-2 ps-4 pe-4 mt-2 mb-2'>
-      <h1>{busqueda}</h1>
+      <div class="d-inline-flex card rounded pt-2 pb-2 ps-4 pe-4 mt-2 mb-2">
+        <h1>{busqueda}</h1>
       </div>
       <div class="card p-4 shadow">
         <div className="row">
@@ -153,16 +159,16 @@ export const CandidateResponse = () => {
                 {preguntas.length > 0 ? preguntas[cont].name : "Cargando..."}
               </h1>
               <div className="timer-wrapper">
-              <CountdownCircleTimer
-                key={key}
-                isPlaying
-                duration={timerDuration}
-                colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                colorsTime={[10, 6, 3, 0]}
-                onComplete={handleTimerEnd} //Accion a reliazar (desactivar el boton o un modal)
-              >
-                {renderTime}
-              </CountdownCircleTimer>
+                <CountdownCircleTimer
+                  key={key}
+                  isPlaying
+                  duration={timerDuration}
+                  colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                  colorsTime={[10, 6, 3, 0]}
+                  onComplete={handleTimerEnd} //Accion a reliazar (desactivar el boton o un modal)
+                >
+                  {renderTime}
+                </CountdownCircleTimer>
               </div>
             </div>
             <div className="mt-auto">
