@@ -22,7 +22,7 @@ export const Login = () => {
 
     var config = {
       method: "post",
-      url: `http://localhost:5000/login`,
+      url: `${import.meta.env.VITE_BACK_URL}login`,
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
@@ -36,7 +36,7 @@ export const Login = () => {
 
         let config = {
           method: "get",
-          url: `http://localhost:5000/recruiter/email/${email} `,
+          url: `${import.meta.env.VITE_BACK_URL}recruiter/email/${email} `,
           headers: {
             Authorization: `Bearer ${sessionStorage.getItem("token")}`,
           },

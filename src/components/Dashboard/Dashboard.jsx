@@ -1,11 +1,13 @@
 import React, { useEffect, useState} from "react";
 import "./Dashboard.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { ModalPregunta } from "./ModalPregunta/ModalPregunta";
 import { ModalFiltro } from "./ModalFiltro/ModalFiltro";
 import axios from "axios";
+import CryptoJS from "crypto-js";
 
 export const Dashboard = () => {
+  let navigate = useNavigate();
   const [showModal, setShowModal] = React.useState(false);
   const [showModalFiltro, setShowModalFiltro] = React.useState(false);
   const [busqueda, setBusqueda] = useState({});
@@ -21,6 +23,9 @@ export const Dashboard = () => {
   const [Tristeza, setTristeza] = useState(true);
   const [Sorpresa, setSorpresa] = useState(true);
   const [Neutral, setNeutral] = useState(true);
+
+  console.log(btoa(52))
+  console.log(atob("NTI="))
 
 
   const sorting = (col) => {
@@ -55,9 +60,10 @@ export const Dashboard = () => {
   }
 
   useEffect(() => {
+    let idBusqueda = CryptoJS.AES.decrypt(params.idBusqueda, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
     let config = {
       method: "get",
-      url: `http://localhost:5000/search/${params.idBusqueda}`,
+      url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -86,7 +92,7 @@ export const Dashboard = () => {
 
     let config = {
       method: "get",
-      url: `http://localhost:5000/result/filter/${pregunta.id}`,
+      url: `${import.meta.env.VITE_BACK_URL}result/filter/${pregunta.id}`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },

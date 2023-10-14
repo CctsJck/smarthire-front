@@ -4,6 +4,7 @@ import axios from "axios";
 import { useParams,useNavigate } from "react-router-dom";
 import { ModalDeleteQuestion } from "./Validacion/ModalDeleteQuestion";
 import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
+import CryptoJS from "crypto-js";
 
 export const Question = () => {
   const [questions, setQuestions] = useState([]);
@@ -16,9 +17,11 @@ export const Question = () => {
   let navigate = useNavigate();
 
   useEffect(() => {
+    let idBusqueda = CryptoJS.AES.decrypt(params.searchId, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+    console.log(idBusqueda)
     let config = {
       method: "get",
-      url: `http://localhost:5000/search/${params.searchId}` /*ver con gonza (Agregar parametro Route)*/,
+      url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}` /*ver con gonza (Agregar parametro Route)*/,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -45,7 +48,7 @@ export const Question = () => {
 
     let config = {
       method: "delete",
-      url: `http://localhost:5000/question/${id}`,
+      url: `${import.meta.env.VITE_BACK_URL}question/${id}`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },

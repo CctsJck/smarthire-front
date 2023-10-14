@@ -2,6 +2,7 @@ import React,{useEffect,useState}from 'react'
 import { parsePath, useNavigate} from 'react-router-dom'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import CryptoJS from 'crypto-js';
 
 export const CandidateSign = () =>{
     const [nombre,setNombre] = useState('')
@@ -19,7 +20,7 @@ export const CandidateSign = () =>{
    /* useEffect(() => {
         let config = {
             method: 'get',
-            url: `http://localhost:5000/search/${params.idBusqueda}`, //ver con gonza (Agregar parametro Route)* ACA ME TRAE LA SEARCH
+            url: `${import.meta.env.VITE_BACK_URL}search/${params.idBusqueda}`, //ver con gonza (Agregar parametro Route)* ACA ME TRAE LA SEARCH
         };
 
         axios(config)
@@ -39,25 +40,27 @@ export const CandidateSign = () =>{
         console.log(candidateId)
         //navigate(`/candidate/response/${params.idBusqueda}/${candidateId}`)
     }
-
     function handleSubmit(e){
         e.preventDefault();
 
         const form= document.getElementById('myform')
 
+
         if(form.checkValidity()){
+
+            let idBusqueda = CryptoJS.AES.decrypt(params.idBusqueda, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
 
 
             console.log(file)
             var data = {
                 name: nombre,
                 surename: apellido,
-                idSearch: params.idBusqueda
+                idSearch: idBusqueda
               };
             
             var config = {
                 method: 'post',
-                url: `http://localhost:5000/candidate/`, //ver con gonza (Agregar parametro Route) // ver como recibe la busqueda 
+                url: `${import.meta.env.VITE_BACK_URL}candidate/`, //ver con gonza (Agregar parametro Route) // ver como recibe la busqueda 
                 data: data,
             };
             axios(config)
@@ -72,9 +75,14 @@ export const CandidateSign = () =>{
                 const formData = new FormData();
                 formData.append("file",file)
         
-                axios.post(`http://localhost:5000/cv/${response.data.id}`,formData) //Poner el id necesario
+                axios.post(`${import.meta.env.VITE_BACK_URL}cv/${response.data.id}`,formData) //Poner el id necesario
                     .then(function(response){
-                        navigate(`/candidate/response/${params.idBusqueda}/${candidate}`)
+
+                        
+                        const candidateEncrypted = CryptoJS.AES.encrypt(candidate.toString(), import.meta.env.VITE_SECRET_KEY) 
+                        
+                        
+                        navigate(`/candidate/response/${encodeURIComponent(params.idBusqueda)}/${encodeURIComponent(candidateEncrypted)}`)
                     })
                 
             })

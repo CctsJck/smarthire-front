@@ -4,6 +4,7 @@ import axios from "axios";
 import { ModalDelete } from "./Validacion/ModalDelete";
 import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 import { useNavigate } from "react-router-dom";
+import CryptoJS from "crypto-js";
 
 export const Busqueda = () => {
   let navigate = useNavigate();
@@ -14,11 +15,13 @@ export const Busqueda = () => {
   const [idToDelete, setIdToDelete] = useState("");
   const [idToEdit, setIdToEdit] = useState("");
   const [success, setSuccess] = useState("");
+  const [prueba, setPrueba] = useState("");
+
 
   useEffect(() => {
     let config = {
       method: "get",
-      url: `http://localhost:5000/search/recruiter/${sessionStorage.getItem(
+      url: `${import.meta.env.VITE_BACK_URL}search/recruiter/${sessionStorage.getItem(
         "userId"
       )}`,
       headers: {
@@ -50,7 +53,7 @@ export const Busqueda = () => {
 
     let config = {
       method: "delete",
-      url: `http://localhost:5000/search/${id}`,
+      url: `${import.meta.env.VITE_BACK_URL}search/${id}`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -61,14 +64,21 @@ export const Busqueda = () => {
     });
   }
 
+
+  
+
   function verResultados(id) {
-    navigate("/dashboard/" + id)
+      const encryptedText = CryptoJS.AES.encrypt(id.toString(), import.meta.env.VITE_SECRET_KEY)
+     console.log(encryptedText)
+
+    navigate("/dashboard/" + encodeURIComponent(encryptedText))
   }
 
   function editarBusqueda(id) {
     console.log(id)
     setIdToEdit(id);
-    navigate("/preguntas/" + id);
+    const encryptedText = CryptoJS.AES.encrypt(id.toString(), import.meta.env.VITE_SECRET_KEY)
+    navigate("/preguntas/" +  encodeURIComponent(encryptedText));
   }
 
   return (

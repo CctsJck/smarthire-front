@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import CryptoJS from "crypto-js";
 
 export const CandidateLanding = () => {
   const [busqueda, setBusqueda] = useState("");
@@ -80,7 +81,10 @@ export const CandidateLanding = () => {
           </div>
           <div class="d-flex justify-content-center mb-4 pb-4">
             <button
-              onClick={() => navigate(`/candidate/sign/${params.idBusqueda}`)}
+              onClick={() => {
+                const encryptedText = CryptoJS.AES.encrypt(params.idBusqueda.toString(), import.meta.env.VITE_SECRET_KEY)
+                navigate(`/candidate/sign/${encodeURIComponent(encryptedText)}`) 
+              }}
               className="btn btn-success mb-4"
             >
               Comenzar

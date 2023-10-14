@@ -4,6 +4,7 @@ import "./VideoTest.css";
 import * as faceapi from "face-api.js";
 import axios from "axios";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import CryptoJS from "crypto-js";
 
 /*Falta:
     - Centrar el timer(BENJA)
@@ -87,9 +88,10 @@ export const CandidateResponse = () => {
   };
 
   useEffect(() => {
+    let idBusqueda = CryptoJS.AES.decrypt(params.idBusqueda, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
     let config = {
       method: "get",
-      url: `http://localhost:5000/search/${params.idBusqueda}`, //ver con gonza (Agregar parametro Route)* ACA ME TRAE LA SEARCH
+      url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`, //ver con gonza (Agregar parametro Route)* ACA ME TRAE LA SEARCH
     };
 
     axios(config)
@@ -123,9 +125,11 @@ export const CandidateResponse = () => {
     setEndPregunta(false);
     var data = videoData;
 
+    let idCandidate = CryptoJS.AES.decrypt(params.idCandidate, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+
     var config = {
       method: "post",
-      url: `http://localhost:5000/result/${params.idCandidate}/${preguntas[cont].id}`, // Me devuelve los ids necesarios
+      url: `http://localhost:5000/result/${idCandidate}/${preguntas[cont].id}`, // Me devuelve los ids necesarios
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",

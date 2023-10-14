@@ -54,7 +54,7 @@ export const Createquestion = () =>{
 
         var config = {
             method: 'post',
-            url: `http://localhost:5000/question/`,
+            url: `${import.meta.env.VITE_BACK_URL}question/`,
             headers: {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
                 'Access-Control-Allow-Origin':'*',

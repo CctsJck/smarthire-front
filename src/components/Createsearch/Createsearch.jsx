@@ -25,7 +25,7 @@ export const Createsearch = () => {
 
     var config = {
       method: "post",
-      url: `http://localhost:5000/search/`,
+      url: `${import.meta.env.VITE_BACK_URL}search/`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
         "Access-Control-Allow-Origin": "*",

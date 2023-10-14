@@ -28,7 +28,7 @@ export const Singup = () => {
 
       var config = {
         method: "post",
-        url: `http://localhost:5000/recruiter/`,
+        url: `${import.meta.env.VITE_BACK_URL}recruiter/`,
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
