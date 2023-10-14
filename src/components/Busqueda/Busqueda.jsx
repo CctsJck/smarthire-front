@@ -2,17 +2,22 @@ import React, { useEffect, useState } from "react";
 import { BusquedaList } from "./BusquedaList/BusquedaList";
 import axios from "axios";
 import { ModalDelete } from "./Validacion/ModalDelete";
+import { ModalShare } from "./Validacion/ModalShare";
 import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
 
 export const Busqueda = () => {
   let navigate = useNavigate();
-
+  
   const [busquedas, setBusquedas] = useState([]);
-  const [showModal, setShowModal] = React.useState(false);
+  const [showModalDelete, setShowModalDelete] = React.useState(false);
+  const [showModalShare, setShowModalShare] = React.useState(false);
+
   const [showEditModal, setShowEditModal] = useState(false);
   const [idToDelete, setIdToDelete] = useState("");
+  const [idToShare, setIdToShare] = useState("");
+  
   const [idToEdit, setIdToEdit] = useState("");
   const [success, setSuccess] = useState("");
   const [prueba, setPrueba] = useState("");
@@ -45,7 +50,13 @@ export const Busqueda = () => {
   function borrarBusqueda(id) {
     console.log("adfasf");
     setIdToDelete(id);
-    setShowModal(true);
+    setShowModalDelete(true);
+  }
+
+  function shareBusqueda(id){
+    console.log(id)
+    setIdToShare(id)
+    setShowModalShare(true)
   }
 
   function handleBorrado(id) {
@@ -63,6 +74,8 @@ export const Busqueda = () => {
       setSuccess("¡Borrado de la busqueda completo!");
     });
   }
+
+
 
 
   
@@ -91,18 +104,28 @@ export const Busqueda = () => {
         <BusquedaList
           busquedas={busquedas}
           borrarBusqueda={borrarBusqueda}
+          shareBusqueda={shareBusqueda}
           verResultados={verResultados}
           editarBusqueda={editarBusqueda}
         />
 
         <ModalDelete
-          show={showModal}
-          onHide={() => setShowModal(false)}
+          show={showModalDelete}
+          onHide={() => setShowModalDelete(false)}
           text="Tenga en cuenta que una vez eliminada los cambios son irreversibles!"
           title="¿Desea eliminar la busqueda?"
           id={idToDelete}
           handleBorrado={handleBorrado}
         />
+        <ModalShare
+          show={showModalShare}
+          onHide={() => setShowModalShare(false)}
+          text="Este es link para compartir con los candidatos"
+          title="¡Compartí esta busqueda!"
+          id={idToShare}
+        />
+
+
         </div>
 
         <div class="position-relative">

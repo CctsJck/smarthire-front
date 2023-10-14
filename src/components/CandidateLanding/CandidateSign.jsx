@@ -49,6 +49,7 @@ export const CandidateSign = () =>{
         if(form.checkValidity()){
 
             let idBusqueda = CryptoJS.AES.decrypt(params.idBusqueda, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+            console.log("busqueda:" +idBusqueda)
 
 
             console.log(file)

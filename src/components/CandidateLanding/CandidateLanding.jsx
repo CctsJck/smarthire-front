@@ -83,7 +83,7 @@ export const CandidateLanding = () => {
             <button
               onClick={() => {
                 const encryptedText = CryptoJS.AES.encrypt(params.idBusqueda.toString(), import.meta.env.VITE_SECRET_KEY)
-                navigate(`/candidate/sign/${encodeURIComponent(encryptedText)}`) 
+                navigate(`/candidate/sign/${encodeURIComponent(params.idBusqueda)}`) 
               }}
               className="btn btn-success mb-4"
             >

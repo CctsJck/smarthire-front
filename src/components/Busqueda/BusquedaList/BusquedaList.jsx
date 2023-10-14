@@ -1,7 +1,7 @@
 import React from 'react'
 import { BusquedaItem } from '../BusquedaItem/BusquedaItem'
 
-export const BusquedaList = ({busquedas,borrarBusqueda,verResultados,editarBusqueda,}) =>{
+export const BusquedaList = ({busquedas,borrarBusqueda,verResultados,editarBusqueda,shareBusqueda}) =>{
     return(
         <table class="table">
             <thead>
@@ -10,6 +10,7 @@ export const BusquedaList = ({busquedas,borrarBusqueda,verResultados,editarBusqu
                 <th scope="col">Eliminar</th>
                 <th scope='col'>Editar</th>
                 <th scope='col'>Resultados</th>
+                <th scope='col'>Compartir</th>
                 </tr>
             </thead>
             <tbody>
@@ -23,6 +24,7 @@ export const BusquedaList = ({busquedas,borrarBusqueda,verResultados,editarBusqu
                             borrarBusqueda ={borrarBusqueda}
                             verResultados={verResultados}
                             editarBusqueda={editarBusqueda}
+                            shareBusqueda={shareBusqueda}
                             />
                         )
                     })}
