@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "react-datepicker/dist/react-datepicker.css";
 import { Header } from "../Header/Header";
 import axios from "axios";
+import CryptoJS from "crypto-js";
 
 export const Createsearch = () => {
   const [name, setName] = useState("");
@@ -14,8 +15,8 @@ export const Createsearch = () => {
 
   function handleCreatesearch(e) {
     e.preventDefault();
-
-
+    const form = document.getElementById("myform");
+    if (form.checkValidity()) {
     var data = {
       name: name,
       description: descripcion,
@@ -33,7 +34,13 @@ export const Createsearch = () => {
       },
       data: data,
     };
-    axios(config).then((response) => navigate("/busquedas"));
+    axios(config).then((response) =>{
+      const encryptedText = CryptoJS.AES.encrypt(response.data.id.toString(), import.meta.env.VITE_SECRET_KEY)
+      navigate("/busquedas/preguntas/" + encodeURIComponent(encryptedText))
+    });
+  }else {
+    form.reportValidity();
+  }
   }
 
   return (
@@ -44,6 +51,10 @@ export const Createsearch = () => {
           <h1>Crear Búsqueda</h1>
         </div>
         <div class="card rounded shadow text-start p-5">
+          <form class="needs-validation" id="myform">
+
+
+
           <div class="mb-3">
             <label for="exampleFormControlInput1" class="form-label">
               Ingrese el título de la búsqueda
@@ -55,6 +66,7 @@ export const Createsearch = () => {
               placeholder="Intership program 2023"
               value={name}
               onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
           <div class="mb-3">
@@ -67,6 +79,7 @@ export const Createsearch = () => {
               rows="3"
               value={descripcion}
               onChange={(e) => setDescripcion(e.target.value)}
+              required
             ></input>
           </div>
           <div class="mb-3">
@@ -80,9 +93,11 @@ export const Createsearch = () => {
                 dateFormat="dd/MM/yyyy"
                 isClearable
                 placeholderText="05/08/2023"
+                required
               />
             </div>
           </div>
+          </form>
           <div class="d-flex justify-content-center mt-3">
             <button
               type="submit"
