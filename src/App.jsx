@@ -18,6 +18,8 @@ import { CandidateResponse } from './components/CandidateLanding/CandidateRespon
 import { Dashboard } from './components/Dashboard/Dashboard'
 import { CandidateEnd } from './components/CandidateLanding/CandidateEnd'
 import {Createquestion} from './components/Createquestion/Createquestion'
+import { QuestionEdit } from './components/Question/QuestionEdit/QuestionEdit'
+
 
 function App() {
 
@@ -56,6 +58,10 @@ function App() {
       <Route path="/dashboard/:idBusqueda" element = {<Dashboard/>}/>
 
       <Route path="/busquedas/preguntas/:idBusqueda" element = {<Createquestion/>}/>
+      
+      <Route path="/busquedas/preguntas/edit/:idQuestion" element = {<QuestionEdit/>}/>
+
+
 
 
 

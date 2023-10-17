@@ -3,10 +3,12 @@ import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import CryptoJS from "crypto-js";
 import { QuestionListCreate } from "./QuetionListCreate";
+import { ModalLoad } from "./ModalLoad";
 
 export const Createquestion = () => {
     let navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState();
+  const [showModalLoad, setShowModalLoad] = React.useState(false);
   const type = ["Opción 1", "Opción 2", "Opción 3", "Opción 4"];
   const [time, setTime] = useState("");
   const [name, setName] = useState("");
@@ -24,16 +26,6 @@ export const Createquestion = () => {
     setName(event.target.value);
   };
 
-  const imageChange = (e) => {
-    if (e.target.files && e.target.files.length > 0) {
-      setSelectedImage(e.target.files[0]);
-    }
-  };
-
-  const onSubmit = (e) => {
-    e.preventDefault();
-    alert(URL.createObjectURL(selectedImage));
-  };
 
   function handleCreatequestion(e) {
     e.preventDefault();
@@ -58,6 +50,7 @@ export const Createquestion = () => {
 
       setTipoActividad("Seleccionar tipo de actividad");
       setName("");
+      setTime("");
     } else {
       form.reportValidity();
     }
@@ -66,6 +59,7 @@ export const Createquestion = () => {
   console.log(todos);
 
   function handleLoadequestion(e) {
+
     e.preventDefault();
 
     console.log("gasdfasdfasdf")
@@ -101,8 +95,21 @@ export const Createquestion = () => {
     });
   }
 
+  function handleModalLoad(e){
+    e.preventDefault()
+    setShowModalLoad(true)
+  }
+
   return (
     <>
+        <ModalLoad
+          show={showModalLoad}
+          onHide={() => setShowModalLoad(false)}
+          text="Cargar Preguntas"
+          title="!Cuidado! Cuando hagas click se van a subir las preguntas"
+          handleLoadequestion={handleLoadequestion}
+        />
+
       <div class="container text-center">
         <div class="d-inline-flex align-self-center card rounded pt-2 pb-2 ps-4 pe-4 mt-2">
           <h1 class="text-center">Crear Preguntas</h1>
@@ -160,7 +167,7 @@ export const Createquestion = () => {
 
           <div className="container mb-3">
             <div className="row">
-              <form onSubmit={onSubmit} className="form-inline">
+              <form  className="form-inline">
                 <br />
                 <center>
                   <button
@@ -168,11 +175,10 @@ export const Createquestion = () => {
                     onClick={handleCreatequestion}
                     class="btn btn-primary me-1"
                   >
-                    Finalizar pregunta
+                    Agregar Pregunta a la Busqueda
                   </button>
                   <button
-                    type="submit"
-                    onClick={handleLoadequestion}
+                    onClick={handleModalLoad}
                     class="btn btn-secondary ms-1"
                   >
                     Finalizar la carga de preguntas

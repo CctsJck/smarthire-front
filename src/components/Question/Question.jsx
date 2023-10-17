@@ -64,12 +64,18 @@ export const Question = () => {
     
   }
 
-  function editarQuestion(id, nombre, tipo, foto, idBusqueda) {
-    sessionStorage.setItem("id", id);
-    sessionStorage.setItem("name", nombre);
-    sessionStorage.setItem("type", tipo);
-    sessionStorage.setItem("picture", foto);
+  function editarQuestion(id, nombre,time) {
+    const encryptedText = CryptoJS.AES.encrypt(id.toString(), import.meta.env.VITE_SECRET_KEY)
+    navigate("/busquedas/preguntas/edit/"+ encodeURIComponent(encryptedText))
+
   }
+
+  function handleCrearPregunta(){
+    navigate("/busquedas/preguntas/" + params.searchId)
+  }
+
+
+
 
   return (
     <>
@@ -97,8 +103,10 @@ export const Question = () => {
         </div>
 
         <div class='d-inline-flex align-self-center'>
-            <button class='btn btn-danger m-1'>Mis Busquedas</button>
-            <button class='btn btn-success m-1'>Crear Pregunta</button>
+            <button class='btn btn-danger m-1' onClick={() => {
+              navigate(-1)
+            }}>Mis Busquedas</button>
+            <button class='btn btn-success m-1' onClick={handleCrearPregunta}>Crear Pregunta</button>
         </div>
 
         <div class="d-inline-flex align-self-center">
