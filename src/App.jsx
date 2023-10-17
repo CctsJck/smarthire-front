@@ -19,6 +19,8 @@ import { Dashboard } from './components/Dashboard/Dashboard'
 import { CandidateEnd } from './components/CandidateLanding/CandidateEnd'
 import {Createquestion} from './components/Createquestion/Createquestion'
 import { QuestionEdit } from './components/Question/QuestionEdit/QuestionEdit'
+import { AfterSingup } from './components/Singup/AfterSingup'
+import { EnableAccount } from './components/Singup/EnableAccount'
 
 
 function App() {
@@ -60,12 +62,10 @@ function App() {
       <Route path="/busquedas/preguntas/:idBusqueda" element = {<Createquestion/>}/>
       
       <Route path="/busquedas/preguntas/edit/:idQuestion" element = {<QuestionEdit/>}/>
-
-
-
-
-
       
+      <Route path="/createaccount/after" element = {<AfterSingup/>}/>
+      
+      <Route path="/createaccount/enable" element = {<EnableAccount/>}/>
 
     </Routes>
 

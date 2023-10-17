@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { ModalPregunta } from "./ModalPregunta/ModalPregunta";
@@ -15,6 +15,7 @@ export const Dashboard = () => {
   const [resultados, setResultados] = useState([]);
   const [order, setOrder] = useState("ASC");
   const params = useParams();
+  const [success, setSuccess] = useState(false);
 
   const [Felicidad, setFelicidad] = useState(true);
   const [Enojo, setEnojo] = useState(true);
@@ -24,9 +25,8 @@ export const Dashboard = () => {
   const [Sorpresa, setSorpresa] = useState(true);
   const [Neutral, setNeutral] = useState(true);
 
-  console.log(btoa(52))
-  console.log(atob("NTI="))
-
+  console.log(btoa(52));
+  console.log(atob("NTI="));
 
   const sorting = (col) => {
     if (order === "ASC") {
@@ -54,13 +54,15 @@ export const Dashboard = () => {
     setShowModal(true);
   }
 
-  function aplicarFiltro(){
-    
+  function aplicarFiltro() {
     setShowModalFiltro(true);
   }
 
   useEffect(() => {
-    let idBusqueda = CryptoJS.AES.decrypt(params.idBusqueda, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
+    let idBusqueda = CryptoJS.AES.decrypt(
+      params.idBusqueda,
+      import.meta.env.VITE_SECRET_KEY
+    ).toString(CryptoJS.enc.Utf8);
     let config = {
       method: "get",
       url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`,
@@ -89,7 +91,6 @@ export const Dashboard = () => {
   }, [busqueda]);
 
   function handlePreguntaSelect(pregunta) {
-
     let config = {
       method: "get",
       url: `${import.meta.env.VITE_BACK_URL}result/filter/${pregunta.id}`,
@@ -110,16 +111,24 @@ export const Dashboard = () => {
         }
       });
 
-      setFelicidad(true);
-      setEnojo(true);
-      setDisgusto(true);
-      setMiedo(true);
-      setTristeza(true);
-      setSorpresa(true);
-      setNeutral(true)
+    setFelicidad(true);
+    setEnojo(true);
+    setDisgusto(true);
+    setMiedo(true);
+    setTristeza(true);
+    setSorpresa(true);
+    setNeutral(true);
   }
 
-  function handleFiltroSelect(tristezaChecked,enojoChecked,disgustoChecked,miedoChecked,sorpresaChecked,felicidadChecked,neutralChecked) {
+  function handleFiltroSelect(
+    tristezaChecked,
+    enojoChecked,
+    disgustoChecked,
+    miedoChecked,
+    sorpresaChecked,
+    felicidadChecked,
+    neutralChecked
+  ) {
     setFelicidad(felicidadChecked);
     setEnojo(enojoChecked);
     setDisgusto(disgustoChecked);
@@ -186,13 +195,13 @@ export const Dashboard = () => {
         title="Filtros"
         preguntas={busqueda.questions}
         handleFiltroSelect={handleFiltroSelect}
-        Felicidad = {Felicidad}
-        Enojo = {Enojo}
-        Disgusto = {Disgusto}
-        Miedo = {Miedo}
-        Tristeza = {Tristeza}
-        Sorpresa = {Sorpresa}
-        Neutral = {Neutral}
+        Felicidad={Felicidad}
+        Enojo={Enojo}
+        Disgusto={Disgusto}
+        Miedo={Miedo}
+        Tristeza={Tristeza}
+        Sorpresa={Sorpresa}
+        Neutral={Neutral}
       />
 
       <div className="tabla-resultados">
@@ -203,37 +212,93 @@ export const Dashboard = () => {
                 <thead>
                   <tr>
                     <th onClick={() => sorting("name")}>Candidato</th>
-                    <th onClick={() => sorting("happy")} className={Felicidad ? "" : "hidden"}>Felicidad</th>
-                    <th onClick={() => sorting("angry")} className={Enojo ? "" : "hidden"}>Enojo</th>
-                    <th onClick={() => sorting("disgust")} className={Disgusto ? "" : "hidden"}>Disgusto</th>
-                    <th onClick={() => sorting("fear")} className={Miedo ? "" : "hidden"}>Miedo</th>
-                    <th onClick={() => sorting("sad")} className={Tristeza ? "" : "hidden"}>Tristeza</th>
-                    <th onClick={() => sorting("surprise")} className={Sorpresa ? "" : "hidden"}>Sorpresa</th>
-                    <th onClick={() => sorting("neutral")} className={Neutral ? "" : "hidden"}>Neutral</th>
+                    <th
+                      onClick={() => sorting("happy")}
+                      className={Felicidad ? "" : "hidden"}
+                    >
+                      Felicidad
+                    </th>
+                    <th
+                      onClick={() => sorting("angry")}
+                      className={Enojo ? "" : "hidden"}
+                    >
+                      Enojo
+                    </th>
+                    <th
+                      onClick={() => sorting("disgust")}
+                      className={Disgusto ? "" : "hidden"}
+                    >
+                      Disgusto
+                    </th>
+                    <th
+                      onClick={() => sorting("fear")}
+                      className={Miedo ? "" : "hidden"}
+                    >
+                      Miedo
+                    </th>
+                    <th
+                      onClick={() => sorting("sad")}
+                      className={Tristeza ? "" : "hidden"}
+                    >
+                      Tristeza
+                    </th>
+                    <th
+                      onClick={() => sorting("surprise")}
+                      className={Sorpresa ? "" : "hidden"}
+                    >
+                      Sorpresa
+                    </th>
+                    <th
+                      onClick={() => sorting("neutral")}
+                      className={Neutral ? "" : "hidden"}
+                    >
+                      Neutral
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {resultados.map((result) => (
                     <tr key={result.id}>
                       <td>
-                        {result.candidate.name + " " + result.candidate.surename}
+                        {result.candidate.name +
+                          " " +
+                          result.candidate.surename}
                       </td>
-                      <td className={Felicidad ? "" : "hidden"}>{(result.happy* 100).toFixed(2)}%</td>
-                      <td className={Enojo ? "" : "hidden"}>{(result.angry* 100).toFixed(2)}%</td>
-                      <td className={Disgusto ? "" : "hidden"}>{(result.disgust* 100).toFixed(2)}%</td>
-                      <td className={Miedo ? "" : "hidden"}>{(result.fear* 100).toFixed(2)}%</td>
-                      <td className={Tristeza ? "" : "hidden"}>{(result.sad* 100).toFixed(2)}%</td>
-                      <td className={Sorpresa ? "" : "hidden"}>{(result.surprise* 100).toFixed(2)}%</td>
-                      <td className={Neutral ? "" : "hidden"}>{(result.neutral* 100).toFixed(2)}%</td>
+                      <td className={Felicidad ? "" : "hidden"}>
+                        {(result.happy * 100).toFixed(2)}%
+                      </td>
+                      <td className={Enojo ? "" : "hidden"}>
+                        {(result.angry * 100).toFixed(2)}%
+                      </td>
+                      <td className={Disgusto ? "" : "hidden"}>
+                        {(result.disgust * 100).toFixed(2)}%
+                      </td>
+                      <td className={Miedo ? "" : "hidden"}>
+                        {(result.fear * 100).toFixed(2)}%
+                      </td>
+                      <td className={Tristeza ? "" : "hidden"}>
+                        {(result.sad * 100).toFixed(2)}%
+                      </td>
+                      <td className={Sorpresa ? "" : "hidden"}>
+                        {(result.surprise * 100).toFixed(2)}%
+                      </td>
+                      <td className={Neutral ? "" : "hidden"}>
+                        {(result.neutral * 100).toFixed(2)}%
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
           </div>
-        ) : null}
+        ) : (
+          <div className="d-flex justify-content-center align-items-center mx-2">
+            <div className="col-md-10 d-flex mt-2 card text-center">
+              <p class='fw-bold'> La pregunta seleccionada no tiene resultados todavia</p>
+            </div>{" "}
+          </div>
+        )}
       </div>
-      
     </>
   );
 };

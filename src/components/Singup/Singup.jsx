@@ -37,7 +37,7 @@ export const Singup = () => {
       };
       axios(config)
         .then(function (response) {
-          console.log(response);
+          navigate("/createaccount/after")
         })
 
         .catch(function (error) {

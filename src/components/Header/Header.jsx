@@ -74,7 +74,7 @@ export const Header = () => {
                     class="nav-link active"
                     aria-current="page"
                     href="#"
-                    onClick={() => navigate("/landing")}
+                    onClick={() => navigate("/")}
                   >
                     Home
                   </a>
@@ -83,7 +83,7 @@ export const Header = () => {
               <form class="d-flex" role="search">
                 <button
                   type="button"
-                  class="btn btn-primary me-2 btn-right"
+                  class="btn btn-outline-secondary me-2 "
                   onClick={() => navigate("/login")}
                   hidden={loggedIn}
                 >
@@ -91,7 +91,7 @@ export const Header = () => {
                 </button>
                 <button
                   type="button"
-                  class="btn btn-primary"
+                  class="btn btn-outline-secondary"
                   onClick={() => navigate("/createaccount")}
                   hidden={loggedIn}
                 >
