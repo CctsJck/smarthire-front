@@ -77,10 +77,6 @@ export const Dashboard = () => {
         setBusqueda(response.data);
       })
       .catch(function (error) {
-        if (error.response.status === 404) setSuccess("No Tiene búsquedas");
-        else {
-          navigate("/login");
-        }
       });
   }, []);
 
@@ -105,10 +101,6 @@ export const Dashboard = () => {
         setResultados(response.data);
       })
       .catch(function (error) {
-        if (error.response.status === 404) setSuccess("No Tiene resultados");
-        else {
-          navigate("/login");
-        }
       });
 
     setFelicidad(true);
