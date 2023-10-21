@@ -135,7 +135,7 @@ export const CandidateResponse = () => {
 
     var config = {
       method: "post",
-      url: `http://localhost:5000/result/${idCandidate}/${preguntas[cont].id}`, // Me devuelve los ids necesarios
+      url: `${import.meta.env.VITE_BACK_URL}result/${idCandidate}/${preguntas[cont].id}`, // Me devuelve los ids necesarios
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Content-Type": "application/json",
