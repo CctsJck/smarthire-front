@@ -2,27 +2,7 @@ import React from "react";
 
 export const EnableAccount = () => {
 
-    useEffect(() => {
-        let idBusqueda = CryptoJS.AES.decrypt(
-          params.idBusqueda,
-          import.meta.env.VITE_SECRET_KEY
-        ).toString(CryptoJS.enc.Utf8);
-        let config = {
-          method: "get",
-          url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`,
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        };
-    
-        axios(config)
-          .then(function (response) {
-            console.log(response.data);
-            setBusqueda(response.data);
-          })
-          .catch(function (error) {
-          });
-      }, []);
+
 
       
   return (

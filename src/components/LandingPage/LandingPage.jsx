@@ -28,7 +28,7 @@ export const LandingPage = () => {
                 <div class="col-lg-20 mxauto">
                   <p class="lead mb-4">
                     {" "}
-                    ¡Los procesos de seleccion nunca fueron tan faciles!
+                    ¡Los procesos de seleccion nunca fueron tan faciles! HOLA
                   </p>
                   <div class="d-flex">
                     <button
