@@ -81,7 +81,7 @@ export const Busqueda = () => {
   
 
   function verResultados(id) {
-      const encryptedText = CryptoJS.AES.encrypt(id.toString(), process.env.VITE_SECRET_KEY)
+      const encryptedText = CryptoJS.AES.encrypt(id.toString(), import.meta.env.VITE_SECRET_KEY)
      console.log(encryptedText)
 
     navigate("/dashboard/" + encodeURIComponent(encryptedText))
@@ -90,7 +90,7 @@ export const Busqueda = () => {
   function editarBusqueda(id) {
     console.log(id)
     setIdToEdit(id);
-    const encryptedText = CryptoJS.AES.encrypt(id.toString(), process.env.VITE_SECRET_KEY)
+    const encryptedText = CryptoJS.AES.encrypt(id.toString(), import.meta.env.VITE_SECRET_KEY)
     navigate("/preguntas/" +  encodeURIComponent(encryptedText));
   }
 
