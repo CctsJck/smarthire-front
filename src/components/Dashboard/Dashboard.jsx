@@ -3,8 +3,10 @@ import "./Dashboard.css";
 import { useParams, useNavigate } from "react-router-dom";
 import { ModalPregunta } from "./ModalPregunta/ModalPregunta";
 import { ModalFiltro } from "./ModalFiltro/ModalFiltro";
+import { ModalExperiencia } from "./ModalExperiencia/ModalExperiencia";
 import axios from "axios";
 import CryptoJS from "crypto-js";
+import { ModalEducacion } from "./ModalEducacion/ModalEducacion";
 
 export const Dashboard = () => {
   let navigate = useNavigate();
@@ -25,8 +27,24 @@ export const Dashboard = () => {
   const [Sorpresa, setSorpresa] = useState(true);
   const [Neutral, setNeutral] = useState(true);
 
-  console.log(btoa(52));
-  console.log(atob("NTI="));
+
+  const [Experiencia,setExperiencia] = useState(false)
+  const [showExperienciaModal,setShowExperienciaModal]= useState(false);
+  const [experienciaObj,setExperienciaObj]=useState();
+  const [candidateSelect,setCandidateSelect]=useState();
+
+
+  const [Educacion,setEducacion] = useState(false)
+  const [showEducacionModal,setShowEducacionModal]= useState(false);
+  const [educacionObj,setEducacionObj]=useState();
+
+
+  const [Habilidades,setHabilidades] = useState(false)
+
+
+
+
+
 
   const sorting = (col) => {
     if (order === "ASC") {
@@ -73,7 +91,7 @@ export const Dashboard = () => {
 
     axios(config)
       .then(function (response) {
-        console.log(response.data);
+        //console.log(response.data);
         setBusqueda(response.data);
       })
       .catch(function (error) {
@@ -97,7 +115,9 @@ export const Dashboard = () => {
 
     axios(config)
       .then(function (response) {
+        console.log("respuestas")
         console.log(response.data);
+        console.log(response.data[0].candidate.cvResponse.cv)
         setResultados(response.data);
       })
       .catch(function (error) {
@@ -110,6 +130,9 @@ export const Dashboard = () => {
     setTristeza(true);
     setSorpresa(true);
     setNeutral(true);
+    setExperiencia(false)
+    setEducacion(false)
+    setHabilidades(false)
   }
 
   function handleFiltroSelect(
@@ -119,7 +142,10 @@ export const Dashboard = () => {
     miedoChecked,
     sorpresaChecked,
     felicidadChecked,
-    neutralChecked
+    neutralChecked,
+    experienciaChecked,
+    educacionChecked,
+    habilidadesChecked
   ) {
     setFelicidad(felicidadChecked);
     setEnojo(enojoChecked);
@@ -128,10 +154,39 @@ export const Dashboard = () => {
     setTristeza(tristezaChecked);
     setSorpresa(sorpresaChecked);
     setNeutral(neutralChecked);
+    setExperiencia(experienciaChecked);
+    setEducacion(educacionChecked);
+    setHabilidades(habilidadesChecked)
+  }
+
+  function handleExperencia(experiencia,candidate){
+    setExperienciaObj(experiencia)
+    console.log("mi candidato"+candidate)
+    setCandidateSelect(candidate)
+    setShowExperienciaModal(true)
+    
+  }
+
+  function handleEducacion(educacion,candidate){
+    setEducacionObj(educacion)
+    setCandidateSelect(candidate)
+    setShowEducacionModal(true)
   }
 
   return (
     <>
+    <ModalExperiencia
+        show={showExperienciaModal}
+        onHide={() => setShowExperienciaModal(false)}
+        candidato={candidateSelect}
+        cv={experienciaObj}/>
+
+<ModalEducacion
+        show={showEducacionModal}
+        onHide={() => setShowEducacionModal(false)}
+        candidato={candidateSelect}
+        cv={educacionObj}/>
+
       <div className="d-flex justify-content-start align-items-center mx-5 mt-4">
         <div className="col-md-10 d-flex mx-5 mt-4">
           <h1 className="mx-5">{busqueda.name}</h1>
@@ -194,7 +249,11 @@ export const Dashboard = () => {
         Tristeza={Tristeza}
         Sorpresa={Sorpresa}
         Neutral={Neutral}
+        Experiencia={Experiencia}
+        Educacion={Educacion}
+        Habilidades={Habilidades}
       />
+
 
       <div className="tabla-resultados">
         {resultados.length > 0 ? (
@@ -246,6 +305,25 @@ export const Dashboard = () => {
                     >
                       Neutral
                     </th>
+                    <th
+                      onClick={() => sorting("experiencia")}
+                      className={Experiencia ? "" : "hidden"}
+                    >
+                      Experiencia
+                    </th>
+                    <th 
+                    onClick={() => sorting("educacion")}
+                      className={Educacion ? "" : "hidden"}
+                      >
+                      Educacion
+                    </th>
+                    <th 
+                    onClick={() => sorting("habilidades")}
+                      className={Habilidades ? "text-center" : "hidden"}
+                      >
+                      Habilidades
+                    </th>
+
                   </tr>
                 </thead>
                 <tbody>
@@ -276,6 +354,15 @@ export const Dashboard = () => {
                       </td>
                       <td className={Neutral ? "" : "hidden"}>
                         {(result.neutral * 100).toFixed(2)}%
+                      </td>
+                      <td className={Experiencia ? "" : "hidden"}>
+                        <button class="btn btn-info" onClick={() => handleExperencia(JSON.parse(result.candidate.cvResponse.cv),result.candidate.name+" "+result.candidate.surename)}>Ver</button>
+                      </td>
+                      <td className={Educacion ? "" : "hidden"}>
+                      <button class="btn btn-info" onClick={() => handleEducacion(JSON.parse(result.candidate.cvResponse.cv),result.candidate.name+" "+result.candidate.surename)}>Ver</button>
+                      </td>
+                      <td className={Habilidades ? "" : "hidden"}>
+                        {JSON.parse(result.candidate.cvResponse.cv).habilidades[0].skills.join(', ')}
                       </td>
                     </tr>
                   ))}

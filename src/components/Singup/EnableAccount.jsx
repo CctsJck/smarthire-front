@@ -1,8 +1,24 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import axios from "axios";
 
 export const EnableAccount = () => {
+  const params = useParams();
 
+  useEffect(() => {
+    let config = {
+      method: "post",
+      url: `${import.meta.env.VITE_BACK_URL}recruiter/confirmation/${params.token}`,
+    };
 
+    axios(config)
+      .then(function (response) {
+        console.log(response.data);
+      })
+      .catch(function (error) {
+      });
+  }, []);
 
       
   return (

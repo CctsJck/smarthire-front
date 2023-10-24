@@ -65,7 +65,7 @@ function App() {
       
       <Route path="/createaccount/after" element = {<AfterSingup/>}/>
       
-      <Route path="/createaccount/enable" element = {<EnableAccount/>}/>
+      <Route path="/createaccount/enable/:token" element = {<EnableAccount/>}/>
 
     </Routes>
 

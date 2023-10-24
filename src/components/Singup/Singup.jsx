@@ -3,8 +3,11 @@ import axios from "axios";
 import { Header } from "../Header/Header";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 export const Singup = () => {
+  let navigate = useNavigate();
+
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
@@ -20,7 +23,7 @@ export const Singup = () => {
       console.log("Hola");
       var data = {
         name: name,
-        surname: surname,
+        surename: surname,
         username: username,
         email: email,
         pass: password1,
@@ -41,6 +44,7 @@ export const Singup = () => {
         })
 
         .catch(function (error) {
+          console.log(error);
           console.log(error.response.data.message);
           if (
             error.response.data.message == "El nombre de usuario no es unico"

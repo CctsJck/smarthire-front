@@ -95,7 +95,7 @@ export const Header = () => {
                   onClick={() => navigate("/createaccount")}
                   hidden={loggedIn}
                 >
-                  CrearCuenta
+                  Crear Cuenta
                 </button>
               </form>
             </div>

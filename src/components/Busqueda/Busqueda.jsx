@@ -129,9 +129,6 @@ export const Busqueda = () => {
         </div>
 
         <div class="position-relative">
-          <p class="position-absolute top-50 start-50 translate-middle">
-            {success}
-          </p>
           <div class ='mt-3'>
             <button class='btn btn-danger m-1' onClick={() => navigate("/")}>Volver al menu</button>
             <button class='btn btn-primary m-1' onClick={() => navigate("/crearbusqueda")}>Crear una Búsqueda</button>
