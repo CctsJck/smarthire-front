@@ -56,6 +56,7 @@ export const QuestionEdit = () => {
           axios(config)
             .then(function (response) {
               console.log(response);
+              navigate(-1)
             })
 
     } else {

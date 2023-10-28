@@ -5,6 +5,7 @@ import * as faceapi from "face-api.js";
 import axios from "axios";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import CryptoJS from "crypto-js";
+import { ModalStart } from "./ModalStart";
 
 /*Falta:
     - Centrar el timer(BENJA)
@@ -17,10 +18,13 @@ export const CandidateResponse = () => {
   const params = useParams();
   const [cantidad, setCantidad] = useState(0);
   const [cont, setCont] = useState(0);
-  const [timerDuration, setTimerDuration] = useState(10);
+  const [timerDuration, setTimerDuration] = useState();
   const [btnState, setBtnState] = useState(true); //Modifica el estado del boton
   const [endPregunta, setEndPregunta] = useState(true);
   const [key, setKey] = useState(0);
+
+  const [showModalStart, setShowModalStart] = useState(true);
+  const [firstTimer, setFirstTimer] = useState(false);
 
   const videoRef = useRef();
   const canvasRef = useRef();
@@ -46,6 +50,10 @@ export const CandidateResponse = () => {
   useEffect(() => {
     console.log("Video data updated:", videoData);
   }, [videoData]);
+
+  useEffect(() => {
+    console.log("Video data updated:", timerDuration);
+  }, [timerDuration]);
 
   useEffect(() => {
     startVideo();
@@ -113,6 +121,7 @@ export const CandidateResponse = () => {
     if (cont < preguntas.length - 1) {
       setCont(cont + 1);
       setBtnState(true); //Cambio el estado del boton para que no se puede continuar a la siguiente pregunta
+      setTimerDuration(preguntas[cont+1].time*3)
       setEndPregunta(true);
       setVideoData([]);
       setKey((prevKey) => prevKey + 1); //Reinicia el timer
@@ -122,89 +131,106 @@ export const CandidateResponse = () => {
   }
 
   function handleTimerEnd() {
-    console.log("Temino el timer");
-    console.log(videoData);
-    setBtnState(false);
-    setEndPregunta(false);
-    var data = videoData;
+      console.log("Temino el timer");
+      console.log(videoData);
+      setBtnState(false);
+      setEndPregunta(false);
+      var data = videoData;
 
-    let idCandidate = CryptoJS.AES.decrypt(
-      params.idCandidate,
-      import.meta.env.VITE_SECRET_KEY
-    ).toString(CryptoJS.enc.Utf8);
+      let idCandidate = CryptoJS.AES.decrypt(
+        params.idCandidate,
+        import.meta.env.VITE_SECRET_KEY
+      ).toString(CryptoJS.enc.Utf8);
 
-    var config = {
-      method: "post",
-      url: `${import.meta.env.VITE_BACK_URL}result/${idCandidate}/${preguntas[cont].id}`, // Me devuelve los ids necesarios
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-    console.log(data);
-    axios(config).then((response) => console.log(response));
+      var config = {
+        method: "post",
+        url: `${import.meta.env.VITE_BACK_URL}result/${idCandidate}/${
+          preguntas[cont].id
+        }`, // Me devuelve los ids necesarios
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      console.log(data);
+      axios(config).then((response) => console.log(response));
+  }
+
+  function handleComenzar(){
+    console.log("empezo el cuestionario")
+    console.log("tiempo: " + preguntas[cont].time*3)
+    setTimerDuration(preguntas[cont].time*3)
+    setFirstTimer(true)
   }
 
   return (
-    <div class="container text-center">
-      <div class="d-inline-flex card rounded pt-2 pb-2 ps-4 pe-4 mt-2 mb-2">
-        <h1>{busqueda}</h1>
-      </div>
-      <div class="card p-4 shadow">
-        <div className="row">
-          <div class="col d-flex flex-column">
-            <div>
-              <h1>
-                {preguntas.length > 0 ? preguntas[cont].name : "Cargando..."}
-              </h1>
-              <div className="timer-wrapper">
-                <CountdownCircleTimer
-                  key={key}
-                  isPlaying
-                  duration={timerDuration}
-                  colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
-                  colorsTime={[10, 6, 3, 0]}
-                  onComplete={handleTimerEnd} //Accion a reliazar (desactivar el boton o un modal)
-                >
-                  {renderTime}
-                </CountdownCircleTimer>
+    <>
+      <ModalStart
+        show={showModalStart}
+        onHide={() => setShowModalStart(false)}
+        comenzar ={handleComenzar}
+      />
+
+      <div class="container text-center">
+        <div class="d-inline-flex card rounded pt-2 pb-2 ps-4 pe-4 mt-2 mb-2">
+          <h1>{busqueda}</h1>
+        </div>
+        <div class="card p-4 shadow">
+          <div className="row">
+            <div class="col d-flex flex-column">
+              <div>
+                <h1>
+                  {preguntas.length > 0 ? preguntas[cont].name : "Cargando..."}
+                </h1>
+                <div className="timer-wrapper">
+                  <CountdownCircleTimer
+                    key={key}
+                    isPlaying = {firstTimer}
+                    duration={timerDuration}
+                    colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
+                    colorsTime={[10, 6, 3, 0]}
+                    onComplete={handleTimerEnd} //Accion a reliazar (desactivar el boton o un modal)
+                  >
+                    {renderTime}
+                  </CountdownCircleTimer>
+                </div>
+              </div>
+              <div className="mt-auto">
+                <h4 hidden={endPregunta}>¡Se acabo el tiempo!</h4>
+                <p hidden={endPregunta}>
+                  Presione el boton para pasar a la siguiente pregunta
+                </p>
               </div>
             </div>
-            <div className="mt-auto">
-              <h4 hidden={endPregunta}>¡Se acabo el tiempo!</h4>
-              <p hidden={endPregunta}>
-                Presione el boton para pasar a la siguiente pregunta
-              </p>
+            <div class="col d-flex flex-column border-start border-2 border-success">
+              <div>
+                <video
+                  class="border border-dark border-3 rounded"
+                  crossOrigin="anonymus"
+                  ref={videoRef}
+                  autoPlay
+                ></video>
+              </div>
+              <canvas
+                ref={canvasRef}
+                width="1000"
+                height="1000"
+                className="appcanvas"
+              />
             </div>
           </div>
-          <div class="col d-flex flex-column border-start border-2 border-success">
-            <div>
-              <video
-                class="border border-dark border-3 rounded"
-                crossOrigin="anonymus"
-                ref={videoRef}
-                autoPlay
-              ></video>
-            </div>
-            <canvas
-              ref={canvasRef}
-              width="1000"
-              height="1000"
-              className="appcanvas"
-            />
+          <div>
+            <button
+              class="btn btn-success mt-3"
+              disabled={btnState}
+              onClick={handleClick}
+            >
+              Siguiente Pregunta
+            </button>
           </div>
-        </div>
-        <div>
-          <button
-            class="btn btn-success mt-3"
-            disabled={btnState}
-            onClick={handleClick}
-          >
-            Siguiente Pregunta
-          </button>
         </div>
       </div>
-    </div>
+    </>
   );
 };

@@ -85,7 +85,7 @@ export const Createquestion = () => {
     };
     console.log(data);
     axios(config).then((response) => {
-        navigate("/")
+        navigate(-1)
     });
   }
 
