@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-scroll";
 import "./LandingPage.css";
 import { Header } from "../Header/Header";
-import logo from "../../assets/Smarthire.png";
+import logo from "../../assets/EmotiHire.png";
 import candidato from "../../assets/landing page candidato.avif";
 import candidata from "../../assets/pexels-artem-podrez-4492161.jpg";
 import candidata2 from "../../assets/pexels-yan-krukau-4458421.jpg";
@@ -28,7 +28,7 @@ export const LandingPage = () => {
                 <div class="col-lg-20 mxauto">
                   <p class="lead mb-4">
                     {" "}
-                    ¡Los procesos de seleccion nunca fueron tan faciles! HOLA
+                    ¡Los procesos de seleccion nunca fueron tan faciles!
                   </p>
                   <div class="d-flex">
                     <button
@@ -58,7 +58,7 @@ export const LandingPage = () => {
               </div>
             </div>
             <div class="col-md-6 d-flex justify-content-center align-items-center">
-              <img src={logo} className="imagen" style={{}} />
+              <img src={logo} className="imagen mt-5" style={{width: "380px", height: "250px"}} />
             </div>
           </div>
         </div>
@@ -77,10 +77,7 @@ export const LandingPage = () => {
               <div className="col-md-6 text-center py-5">
                 <h3>Tus candidatos son entrevistados y analizados</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                  neque quaerat, maiores perspiciatis modi libero quod quas
-                  cumque hic itaque nemo eaque impedit, similique ipsum quia,
-                  maxime quos ex qui!
+                Tus candidatos son cuidadosamente entrevistados y evaluados por nuestro algoritmo experto en deteccion de emociones. Nos aseguramos de encontrar a las personas adecuadas para tu empresa, analizando sus emociones y brindandote datos para tu analisis. En EmotiHire, creemos en construir equipos sólidos y exitosos para tu negocio. Confía en nosotros para encontrar a los candidatos que impulsarán el crecimiento de tu empresa.
                 </p>
               </div>
             </div>
@@ -95,10 +92,7 @@ export const LandingPage = () => {
                   emociones de tus candidatos
                 </h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                  neque quaerat, maiores perspiciatis modi libero quod quas
-                  cumque hic itaque nemo eaque impedit, similique ipsum quia,
-                  maxime quos ex qui!
+                Descubre una forma innovadora de evaluar a tus candidatos con EmotiHire. Utilizamos tecnología de inteligencia artificial de vanguardia para analizar las emociones de los candidatos durante las entrevistas. Nuestra plataforma identifica las emociones y actitudes que pueden marcar la diferencia en tus equipos de trabajo.
                 </p>
               </div>
               <div className="col-md-6 d-flex justify-content-end">
@@ -122,10 +116,7 @@ export const LandingPage = () => {
                   manera mas amigable
                 </h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                  neque quaerat, maiores perspiciatis modi libero quod quas
-                  cumque hic itaque nemo eaque impedit, similique ipsum quia,
-                  maxime quos ex qui!
+                Descubre una experiencia sin complicaciones al analizar los curriculums de LinkedIn con EmotiHire. Nuestra plataforma intuitiva transforma datos complejos en información fácilmente manipulable. Con nuestra interfaz amigable, puedes explorar las habilidades, la experiencia laboral y las recomendaciones de los candidatos de una manera clara y efectiva.
                 </p>
               </div>
             </div>
