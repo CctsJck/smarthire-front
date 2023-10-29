@@ -6,6 +6,7 @@ import { ModalShare } from "./Validacion/ModalShare";
 import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { jwtDecode } from "jwt-decode";
 
 export const Busqueda = () => {
   let navigate = useNavigate();
@@ -26,9 +27,7 @@ export const Busqueda = () => {
   useEffect(() => {
     let config = {
       method: "get",
-      url: `${import.meta.env.VITE_BACK_URL}search/recruiter/${sessionStorage.getItem(
-        "userId"
-      )}`,
+      url: `${import.meta.env.VITE_BACK_URL}search/recruiter/${jwtDecode(sessionStorage.getItem("token")).id}`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -42,7 +41,7 @@ export const Busqueda = () => {
       .catch(function (error) {
         if (error.response.status === 404) setSuccess("No Tiene busquedas");
         else {
-          navigate("/login");
+          console.log("hola");
         }
       });
   }, []);
