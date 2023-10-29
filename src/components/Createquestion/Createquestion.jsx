@@ -4,6 +4,7 @@ import axios from "axios";
 import CryptoJS from "crypto-js";
 import { QuestionListCreate } from "./QuetionListCreate";
 import { ModalLoad } from "./ModalLoad";
+import { jwtDecode } from "jwt-decode";
 
 export const Createquestion = () => {
   let navigate = useNavigate();
@@ -83,7 +84,10 @@ export const Createquestion = () => {
     };
     console.log(data);
     axios(config).then((response) => {
-      navigate(-1);
+      
+      let token = jwtDecode(sessionStorage.getItem("token")).id
+      const encryptedText = CryptoJS.AES.encrypt(token, import.meta.env.VITE_SECRET_KEY)
+      navigate("/busqueda/preguntas/"+encodeURIComponent(encryptedText));
     }).catch(function(error){
       if (error.response.status === 403){
         sessionStorage.clear();
