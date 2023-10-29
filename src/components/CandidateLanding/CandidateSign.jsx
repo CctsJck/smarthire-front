@@ -14,32 +14,9 @@ export const CandidateSign = () =>{
 
 
     useEffect(() => {
-        console.log("candidato Updateado:", candidateId);
+
       }, [candidateId]);
 
-   /* useEffect(() => {
-        let config = {
-            method: 'get',
-            url: `${import.meta.env.VITE_BACK_URL}search/${params.idBusqueda}`, //ver con gonza (Agregar parametro Route)* ACA ME TRAE LA SEARCH
-        };
-
-        axios(config)
-        .then(function(response){
-            console.log(response.data.questions)
-            
-
-        })
-        .catch(function (error){
-
-            setSuccess("No Tiene preguntas")
-        })
-
-    },[])*/
-
-    function navegar(){
-        console.log(candidateId)
-        //navigate(`/candidate/response/${params.idBusqueda}/${candidateId}`)
-    }
     function handleSubmit(e){
         e.preventDefault();
 
@@ -49,10 +26,7 @@ export const CandidateSign = () =>{
         if(form.checkValidity()){
 
             let idBusqueda = CryptoJS.AES.decrypt(params.idBusqueda, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
-            console.log("busqueda:" +idBusqueda)
 
-
-            console.log(file)
             var data = {
                 name: nombre,
                 surename: apellido,
@@ -61,22 +35,17 @@ export const CandidateSign = () =>{
             
             var config = {
                 method: 'post',
-                url: `${import.meta.env.VITE_BACK_URL}candidate/`, //ver con gonza (Agregar parametro Route) // ver como recibe la busqueda 
+                url: `${import.meta.env.VITE_BACK_URL}candidate/`,
                 data: data,
             };
             axios(config)
             .then(function(response){
-
-                console.log(response)
                 setCandidateId(response.data.id)
-                console.log(candidateId)
-
                 var candidate = response.data.id
-
                 const formData = new FormData();
                 formData.append("file",file)
         
-                axios.post(`${import.meta.env.VITE_BACK_URL}cv/${response.data.id}`,formData) //Poner el id necesario
+                axios.post(`${import.meta.env.VITE_BACK_URL}cv/${response.data.id}`,formData) 
                     .then(function(response){
 
                         

@@ -2,7 +2,7 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
 export const ModalFiltro = (props) => {
-  console.log(props);
+
 
   const [tristezaChecked, setTristezaChecked] = React.useState(props.Tristeza);
   const [enojoChecked, setEnojoChecked] = React.useState(props.Enojo);
@@ -233,12 +233,6 @@ export const ModalFiltro = (props) => {
                   educacionChecked,
                   habilidadesChecked
                 );
-                console.log(tristezaChecked);
-                console.log(enojoChecked);
-                console.log(disgustoChecked);
-                console.log(miedoChecked);
-                console.log(sorpresaChecked);
-                console.log(felicidadChecked);
                 props.onHide();
               }}
             >

@@ -3,8 +3,6 @@ import { Modal,Button } from 'react-bootstrap'
 
 
 export const ModalPregunta = (props) => {
-    console.log(props)
-
 
     return(
         <>
@@ -31,7 +29,7 @@ export const ModalPregunta = (props) => {
                     className="list-group-item list-group-item-action"
                     onClick={() => {
                       props.handlePreguntaSelect(pregunta);
-                      props.onHide(); // Cierra el modal al hacer clic en una pregunta
+                      props.onHide(); 
                     }}
                   >
                     {pregunta.name}

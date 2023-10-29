@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useRef,useEffect } from 'react'
-//import "./VideoTest.css"
 import axios from 'axios'
 import * as faceapi from 'face-api.js'
 
@@ -23,7 +22,6 @@ export const  VideoTest = () =>{
       videoRef.current.srcObject = currentStream
     })
     .catch((err) =>{
-      console.log(err)
     })
   }
 
@@ -44,34 +42,6 @@ export const  VideoTest = () =>{
         new faceapi.TinyFaceDetectorOptions()).withFaceExpressions()
 
         videoData.push(detections[0].expressions)
-        console.log(videoData)
-        /*if (videoData.length === 20){
-
-          console.log("asdfasdbfpuadsv aisdcebcfuds f")
-
-            var data = videoData
-    
-            var config = {
-                method: 'post',
-                url: `http://localhost:5000/result/hola/5/4`, // modificar los ids
-                headers: {
-                    'Access-Control-Allow-Origin':'*',
-                    'Content-Type': 'application/json'
-                },
-                data : data
-    
-    
-            };
-            console.log(data)
-            axios(config)
-            .then((response) => 
-                console.log(response)
-                
-            )
-    
-    
-
-        }*/
 
     },2000)
   }

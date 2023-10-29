@@ -9,7 +9,7 @@ import { jwtDecode } from "jwt-decode";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const [error, setError] = useState(null); // State to hold the error message
+  const [error, setError] = useState(null); 
 
 
   let navigate = useNavigate();
@@ -38,7 +38,6 @@ export const Login = () => {
         navigate("/")
       })
       .catch(function (error) {
-        // Update the error state with the error message
         toast.error("El usario o contraseña no son correctos", {
           position: "top-right",
           autoClose: 5000,
@@ -67,7 +66,7 @@ export const Login = () => {
           pauseOnHover
           theme="light"
         />
-        {/* Same as */}
+        {}
         <ToastContainer />
       </div>
       <div class ='container text-center'>
@@ -106,7 +105,7 @@ export const Login = () => {
                   id="passwordError"
                   className="form-text text-center text-danger"
                 >
-                  {error} {/* Display the error message */}
+                  {error} {}
                 </div>
               </div>
               <div class="d-flex justify-content-center">

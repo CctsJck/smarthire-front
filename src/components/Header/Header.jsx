@@ -21,7 +21,7 @@ export const Header = () => {
     } else {
       navigate("/");
     }
-    //location.reload();
+
   }
 
   return (
@@ -40,7 +40,6 @@ export const Header = () => {
                     fill="currentColor"
                     class="bi bi-list"
                     viewBox="0 0 16 16"
-                    onClick={() => console.log("hola")}
                     >
                     <path
                         fill-rule="evenodd"

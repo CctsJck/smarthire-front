@@ -57,20 +57,16 @@ export const Createquestion = () => {
     }
   }
 
-  console.log(todos);
+
 
   function handleLoadequestion(e) {
-    e.preventDefault();
-
-    console.log("gasdfasdfasdf");
+    e.preventDefault();;
 
     let data = todos;
 
     data.forEach((todo) => {
       delete todo.id;
     });
-    console.log(data);
-
     var config = {
       method: "post",
       url: `${import.meta.env.VITE_BACK_URL}question/`,
@@ -81,7 +77,6 @@ export const Createquestion = () => {
       },
       data: data,
     };
-    console.log(data);
     axios(config).then((response) => {
       navigate(-1);
     }).catch(function(error){

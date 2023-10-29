@@ -91,7 +91,6 @@ export const Dashboard = () => {
 
     axios(config)
       .then(function (response) {
-        //console.log(response.data);
         setBusqueda(response.data);
       })
       .catch(function(error){
@@ -119,9 +118,6 @@ export const Dashboard = () => {
 
     axios(config)
       .then(function (response) {
-        console.log("respuestas")
-        console.log(response.data);
-        console.log(response.data[0].candidate.cvResponse.cv)
         setResultados(response.data);
       })
       .catch(function(error){
@@ -169,7 +165,6 @@ export const Dashboard = () => {
 
   function handleExperencia(experiencia,candidate){
     setExperienciaObj(experiencia)
-    console.log("mi candidato"+candidate)
     setCandidateSelect(candidate)
     setShowExperienciaModal(true)
     

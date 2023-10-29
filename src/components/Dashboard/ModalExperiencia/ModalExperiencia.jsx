@@ -2,9 +2,7 @@ import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
 export const ModalExperiencia = (props) => {
-  console.log(props);
-  console.log("CV");
-  console.log(props.cv);
+
 
   return (
     <>

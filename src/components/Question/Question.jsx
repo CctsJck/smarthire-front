@@ -9,7 +9,6 @@ import CryptoJS from "crypto-js";
 export const Question = () => {
   const [questions, setQuestions] = useState([]);
   const [showModal, setShowModal] = React.useState(false);
-  /*const [showEditModal, setShowEditModal] =useState(false)*/
   const [idToDelete, setIdToDelete] = useState("");
   const [idToEdit, setIdToEdit] = useState("");
   const [success, setSuccess] = useState("");
@@ -18,10 +17,9 @@ export const Question = () => {
 
   useEffect(() => {
     let idBusqueda = CryptoJS.AES.decrypt(params.searchId, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
-    console.log(idBusqueda)
     let config = {
       method: "get",
-      url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}` /*ver con gonza (Agregar parametro Route)*/,
+      url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
@@ -29,7 +27,6 @@ export const Question = () => {
 
     axios(config)
       .then(function (response) {
-        console.log(response.data.questions);
         setQuestions(response.data.questions);
       })
       .catch(function (error) {
@@ -43,13 +40,11 @@ export const Question = () => {
   }, []);
 
   function borrarQuestion(id) {
-    console.log("adfasf");
     setIdToDelete(id);
     setShowModal(true);
   }
 
   function handleBorrado(id) {
-    console.log("Id de handle borrado:" + id);
 
     let config = {
       method: "delete",
@@ -71,7 +66,6 @@ export const Question = () => {
   }
 
   function verResultados(id) {
-    console.log("entre a los resultados");
     
   }
 

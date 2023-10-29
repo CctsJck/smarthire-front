@@ -7,10 +7,6 @@ import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import CryptoJS from "crypto-js";
 import { ModalStart } from "./ModalStart";
 
-/*Falta:
-    - Centrar el timer(BENJA)
-    - Boton de Comenzar(Con o sin Modal)
-    - Terminar*/
 
 export const CandidateResponse = () => {
   const [busqueda, setBusqueda] = useState("");
@@ -19,7 +15,7 @@ export const CandidateResponse = () => {
   const [cantidad, setCantidad] = useState(0);
   const [cont, setCont] = useState(0);
   const [timerDuration, setTimerDuration] = useState();
-  const [btnState, setBtnState] = useState(true); //Modifica el estado del boton
+  const [btnState, setBtnState] = useState(true); 
   const [endPregunta, setEndPregunta] = useState(true);
   const [key, setKey] = useState(0);
 
@@ -33,7 +29,6 @@ export const CandidateResponse = () => {
   let navigate = useNavigate();
 
   const renderTime = ({ remainingTime }) => {
-    // Funcion que se encarga de despregar el tiempo del timer
     if (remainingTime === 0) {
       return <div className="timer">Fin</div>;
     }
@@ -78,7 +73,6 @@ export const CandidateResponse = () => {
               detections[0].expressions,
             ]);
           } catch {
-            console.log("hola");
           }
         }, 2000);
       });
@@ -102,7 +96,7 @@ export const CandidateResponse = () => {
     ).toString(CryptoJS.enc.Utf8);
     let config = {
       method: "get",
-      url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`, //ver con gonza (Agregar parametro Route)* ACA ME TRAE LA SEARCH
+      url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`,
     };
 
     axios(config)
@@ -120,15 +114,15 @@ export const CandidateResponse = () => {
     e.preventDefault();
     if (cont < preguntas.length - 1) {
       setCont(cont + 1);
-      setBtnState(true); //Cambio el estado del boton para que no se puede continuar a la siguiente pregunta
+      setBtnState(true); 
       if (preguntas[cont+1].type === "min"){
-        setTimerDuration(preguntas[cont+1].time*60) //+1 porque no se llega a actualizar el cont
+        setTimerDuration(preguntas[cont+1].time*60) 
       }else{
-        setTimerDuration(preguntas[cont+1].time) //+1 porque no se llega a actualizar el cont
+        setTimerDuration(preguntas[cont+1].time) 
       }
       setEndPregunta(true);
       setVideoData([]);
-      setKey((prevKey) => prevKey + 1); //Reinicia el timer
+      setKey((prevKey) => prevKey + 1); 
     } else if (cont === preguntas.length - 1) {
       navigate("/candidate/end");
     }
@@ -150,7 +144,7 @@ export const CandidateResponse = () => {
         method: "post",
         url: `${import.meta.env.VITE_BACK_URL}result/${idCandidate}/${
           preguntas[cont].id
-        }`, // Me devuelve los ids necesarios
+        }`, 
         headers: {
           "Access-Control-Allow-Origin": "*",
           "Content-Type": "application/json",
@@ -165,9 +159,9 @@ export const CandidateResponse = () => {
     console.log("empezo el cuestionario")
     console.log("tiempo: " + preguntas[cont].time*60)
     if (preguntas[cont+1].type === "min"){
-      setTimerDuration(preguntas[cont].time*60) //+1 porque no se llega a actualizar el cont
+      setTimerDuration(preguntas[cont].time*60) 
     }else{
-      setTimerDuration(preguntas[cont].time) //+1 porque no se llega a actualizar el cont
+      setTimerDuration(preguntas[cont].time) 
     }
     setFirstTimer(true)
   }
@@ -198,7 +192,7 @@ export const CandidateResponse = () => {
                     duration={timerDuration}
                     colors={["#004777", "#F7B801", "#A30000", "#A30000"]}
                     colorsTime={[10, 6, 3, 0]}
-                    onComplete={handleTimerEnd} //Accion a reliazar (desactivar el boton o un modal)
+                    onComplete={handleTimerEnd}
                   >
                     {renderTime}
                   </CountdownCircleTimer>
