@@ -47,6 +47,7 @@ export const QuestionEdit = () => {
         var data = {
             id: idQuestion,
             name: name,
+            type: tipo,
             time: time,
           };
     

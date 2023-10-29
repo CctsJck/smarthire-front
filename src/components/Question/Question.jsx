@@ -115,7 +115,7 @@ export const Question = () => {
 
         <div class='d-inline-flex align-self-center'>
             <button class='btn btn-danger m-1' onClick={() => {
-              navigate(-1)
+              navigate("/misbusquedas")
             }}>Mis Busquedas</button>
             <button class='btn btn-success m-1' onClick={handleCrearPregunta}>Crear Pregunta</button>
         </div>
