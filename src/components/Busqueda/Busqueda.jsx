@@ -6,6 +6,7 @@ import { ModalShare } from "./Validacion/ModalShare";
 import { useIsRTL } from "react-bootstrap/esm/ThemeProvider";
 import { useNavigate } from "react-router-dom";
 import CryptoJS from "crypto-js";
+import { jwtDecode } from "jwt-decode";
 
 export const Busqueda = () => {
   let navigate = useNavigate();
