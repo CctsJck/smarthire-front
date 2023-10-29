@@ -35,7 +35,7 @@ export const LandingPage = () => {
                       type="button"
                       class="btn btn-primary me-2"
                       onClick={() => {
-                        if (sessionStorage.getItem("userId") != null) {
+                        if (sessionStorage.getItem("token") != null) {
                           navigate("/misbusquedas");
                         } else {
                           navigate("/createaccount");
@@ -156,7 +156,7 @@ export const LandingPage = () => {
             <div class="invalid-feedback">Please choose a username.</div>
           </div>
           <div class="mb-3">
-          <label for="floatingTextarea2">Commentarios/Preguntas</label>
+            <label for="floatingTextarea2">Commentarios/Preguntas</label>
             <textarea
               class="form-control"
               placeholder="Escribí lo que sea, desde comentarios hasta preguntas!"

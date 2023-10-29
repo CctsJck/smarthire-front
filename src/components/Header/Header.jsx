@@ -9,7 +9,7 @@ export const Header = () => {
   
 
   useEffect(() => {
-    if (sessionStorage.getItem("userId") != null) {
+    if (sessionStorage.getItem("token") != null) {
       setLoggedIn(true);
     }
   }, []);

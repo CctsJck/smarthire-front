@@ -22,10 +22,10 @@ export const ModalLoad = (props) => {
           </div>
       </Modal.Body>
       <Modal.Footer>
-      <Button onClick={props.onHide} className="btn-success">Cancelar</Button>
+      <Button onClick={props.onHide} className="btn-danger">Cancelar</Button>
 
 
-<Button className="btn-danger" onClick = {props.handleLoadequestion} >Borrar</Button>
+<Button className="btn-success" onClick = {props.handleLoadequestion} >Crear</Button>
       </Modal.Footer>
     </Modal>
   );

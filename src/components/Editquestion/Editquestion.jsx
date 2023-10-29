@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
+import { jwtDecode } from 'jwt-decode';
+
 
 
 export const Editquestion = () =>{
@@ -36,7 +38,7 @@ export const Editquestion = () =>{
         e.preventDefault()
 
         var data = {
-            "id": sessionStorage.getItem('id'),
+            "id": jwtDecode(sessionStorage.getItem('token')).id,
             "name": name,
             "type": tipoActividad,
             "picture": "picture",   
@@ -58,8 +60,12 @@ export const Editquestion = () =>{
         axios(config)
         .then((response) => 
             console.log(response)
-            
-        )
+        ).catch(function(error){
+            if (error.response.status === 403){
+              sessionStorage.clear();
+              navigate("/login")
+            }
+          });
 
 
     }
