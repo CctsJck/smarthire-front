@@ -28,7 +28,7 @@ export const LandingPage = () => {
                 <div class="col-lg-20 mxauto">
                   <p class="lead mb-4">
                     {" "}
-                    {process.env.VITE_SECRET_KEY}
+                    {import.meta.env.VITE_SECRET_KEY}
                   </p>
                   <div class="d-flex">
                     <button
