@@ -26,9 +26,7 @@ export const Busqueda = () => {
   useEffect(() => {
     let config = {
       method: "get",
-      url: `${import.meta.env.VITE_BACK_URL}search/recruiter/${sessionStorage.getItem(
-        "userId"
-      )}`,
+      url: `${import.meta.env.VITE_BACK_URL}search/recruiter/${jwtDecode(sessionStorage.getItem("token")).id}`,
       headers: {
         Authorization: `Bearer ${sessionStorage.getItem("token")}`,
       },
