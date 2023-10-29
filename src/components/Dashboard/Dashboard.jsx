@@ -94,7 +94,11 @@ export const Dashboard = () => {
         //console.log(response.data);
         setBusqueda(response.data);
       })
-      .catch(function (error) {
+      .catch(function(error){
+        if (error.response.status === 403){
+          sessionStorage.clear();
+          navigate("/login")
+        }
       });
   }, []);
 
@@ -120,7 +124,11 @@ export const Dashboard = () => {
         console.log(response.data[0].candidate.cvResponse.cv)
         setResultados(response.data);
       })
-      .catch(function (error) {
+      .catch(function(error){
+        if (error.response.status === 403){
+          sessionStorage.clear();
+          navigate("/login")
+        }
       });
 
     setFelicidad(true);

@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Login.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { jwtDecode } from "jwt-decode";
 
 export const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,21 +35,7 @@ export const Login = () => {
       .then(function (response) {
         let token = response.headers.get("authorization");
         sessionStorage.setItem("token", token.split(" ")[1]);
-
-        let config = {
-          method: "get",
-          url: `${import.meta.env.VITE_BACK_URL}recruiter/email/${email} `,
-          headers: {
-            Authorization: `Bearer ${sessionStorage.getItem("token")}`,
-          },
-        };
-        axios(config).then(function (response) {
-          sessionStorage.setItem("username", response.data.username);
-          sessionStorage.setItem("email", response.data.email);
-          sessionStorage.setItem("userId", response.data.id);
-          navigate("/")
-          //sessionStorage.setItem('user', response.data.usernm)
-        });
+        navigate("/")
       })
       .catch(function (error) {
         // Update the error state with the error message

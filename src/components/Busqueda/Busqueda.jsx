@@ -72,6 +72,11 @@ export const Busqueda = () => {
 
     axios(config).then(function (response) {
       setSuccess("¡Borrado de la busqueda completo!");
+    }).catch(function(error){
+      if (error.response.status === 403){
+        sessionStorage.clear();
+        navigate("/login")
+      }
     });
   }
 

@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import CryptoJS from "crypto-js";
+import candidato from "../../assets/landing page candidato.avif";
+import candidata from "../../assets/pexels-artem-podrez-4492161.jpg";
+import candidata2 from "../../assets/pexels-yan-krukau-4458421.jpg";
 
 export const CandidateLanding = () => {
   const [busqueda, setBusqueda] = useState("");
@@ -35,50 +38,68 @@ export const CandidateLanding = () => {
         <div class="container bg-white rounded mt-5">
           <h1 class="text-center">Bienvenido a EmotiHire</h1>
           <p class="text-center text-body-secondary">
-            ¡Hola! En esta plataforma es una nueva forma de ... Lorem ipsum
-            dolor sit amet consectetur adipisicing elit. Ullam repellat officiis
-            dolorum earum maxime culpa, ut nobis impedit eum perferendis optio
-            accusamus at quisquam delectus maiores eius aspernatur quod
-            inventore!
+          ¡Hola! Bienvenido a Emotihire, en esta plataforma va a poder asistir a entrevistas de reclutamiento de una manera totalmente virtual, te contamos como es!
           </p>
-          <div className="col-md-12 d-flex card shadow mt-5">
+          <div className="col-md-12 d-flex my-5" style={{ background: "#ffffff" }}>
+        <div className="container mt-5" style={{ background: "#ffffff" }}>
+          <div className="col-md-12 d-flex card shadow">
             <div className="d-flex align-items-center">
-              <div className="col-md-9 text-center py-5">
-                <h3>
-                  {" "}
-                  Utiliza inteligencia artificial en para la deteccion de
-                  emociones
-                </h3>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                  neque quaerat, maiores perspiciatis modi libero quod quas
-                  cumque hic itaque nemo eaque impedit, similique ipsum quia,
-                  maxime quos ex qui!
-                </p>
+              <div className="col-md-6 d-flex justify-content-start">
+                <img
+                  src={candidato}
+                  className=""
+                  style={{ maxWidth: "100%" }}
+                />
               </div>
-              <div className="col-md-3 d-flex justify-content-end">
-                <div class="bg-black"></div>
+              <div className="col-md-6 text-center py-5">
+                <h3>¡Entrevista laboral cuando vos quieras!</h3>
+                <p>
+                Las entrevistas son grabadas y analizadas utilizando un algoritmo de inteligencia artificial. Así que la entrevista se hace cuando vos tengas disponibilidad, sin necesidad de coordinar una reunión. 
+                </p>
               </div>
             </div>
           </div>
+
           <div className="col-md-12 d-flex card shadow mt-5">
             <div className="d-flex align-items-center">
-              <div className="col-md-3 d-flex justify-content-end"></div>
-              <div className="col-md-9 text-center py-5">
+              <div className="col-md-6 text-center py-5">
                 <h3>
                   {" "}
                   Utiliza inteligencia artificial en para la deteccion de
                   emociones de tus candidatos
                 </h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                  neque quaerat, maiores perspiciatis modi libero quod quas
-                  cumque hic itaque nemo eaque impedit, similique ipsum quia,
-                  maxime quos ex qui!
+                  El algoritmo de inteligencia artificial que se utiliza analiza tus emociones. Vos tenes que responder las preguntas y listo!
+
+                </p>
+              </div>
+              <div className="col-md-6 d-flex justify-content-end">
+                <img src={candidata} className="candidato" class="img-fluid" />
+              </div>
+            </div>
+          </div>
+
+          <div className="col-md-12 d-flex card shadow my-5">
+            <div className="d-flex align-items-center">
+              <div className="col-md-6 d-flex justify-content-start">
+                <img
+                  src={candidata2}
+                  className=""
+                  style={{ maxWidth: "100%" }}
+                />
+              </div>
+              <div className="col-md-6 text-center py-5">
+                <h3>
+                  Analizamos tu CV de LinkedIn
+                </h3>
+                <p>
+                  Se te va a pedir que cargues tu CV de LinkedIn, con estos datos podemos mostrarle al reclutador cuales son tus habilidades.
                 </p>
               </div>
             </div>
           </div>
+        </div>
+      </div>
           <div class="d-flex justify-content-center mb-4 pb-4">
             <button
               onClick={() => {

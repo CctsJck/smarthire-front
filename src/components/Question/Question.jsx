@@ -33,7 +33,12 @@ export const Question = () => {
         setQuestions(response.data.questions);
       })
       .catch(function (error) {
-        setSuccess("No Tiene preguntas");
+        if (error.response.status === 403){
+          sessionStorage.clear();
+          navigate("/login")
+        }else{
+          setSuccess("No Tiene preguntas");
+        }
       });
   }, []);
 
@@ -55,7 +60,13 @@ export const Question = () => {
     };
 
     axios(config).then(function (response) {
-      setSuccess("¡Borrado de la pregunta completo!");
+      setSuccess("¡Borrado de la pregunta completo!")
+      navigate(0);
+    }).catch(function(error){
+      if (error.response.status === 403){
+        sessionStorage.clear();
+        navigate("/login")
+      }
     });
   }
 
@@ -71,7 +82,7 @@ export const Question = () => {
   }
 
   function handleCrearPregunta(){
-    navigate("/busquedas/preguntas/" + params.searchId)
+    navigate("/busquedas/preguntas/" + encodeURIComponent(params.searchId))
   }
 
 

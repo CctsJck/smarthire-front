@@ -35,7 +35,7 @@ export const LandingPage = () => {
                       type="button"
                       class="btn btn-primary me-2"
                       onClick={() => {
-                        if (sessionStorage.getItem("userId") != null) {
+                        if (sessionStorage.getItem("token") != null) {
                           navigate("/misbusquedas");
                         } else {
                           navigate("/createaccount");
@@ -77,10 +77,10 @@ export const LandingPage = () => {
               <div className="col-md-6 text-center py-5">
                 <h3>Tus candidatos son entrevistados y analizados</h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                  neque quaerat, maiores perspiciatis modi libero quod quas
-                  cumque hic itaque nemo eaque impedit, similique ipsum quia,
-                  maxime quos ex qui!
+                  Con EmotiHire vas a poder ahorrar tiempo, analizando
+                  candidatos por medio de entrevistas virtuales. En ellas se
+                  analizarán las emociones de los candidatos y se mostrarán en
+                  un dashboard interactivo para un posterior análisis
                 </p>
               </div>
             </div>
@@ -95,10 +95,11 @@ export const LandingPage = () => {
                   emociones de tus candidatos
                 </h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                  neque quaerat, maiores perspiciatis modi libero quod quas
-                  cumque hic itaque nemo eaque impedit, similique ipsum quia,
-                  maxime quos ex qui!
+                  El algoritmo de inteligencia artificial que se utiliza analiza
+                  las emociones de los candidatos. Vos vas a poder proveer las
+                  preguntas que desees y el tiempo para responder las mismas.
+                  Luego podrás ver como reaccionaron los candidatos a la hora de
+                  responderlas
                 </p>
               </div>
               <div className="col-md-6 d-flex justify-content-end">
@@ -122,10 +123,11 @@ export const LandingPage = () => {
                   manera mas amigable
                 </h3>
                 <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-                  neque quaerat, maiores perspiciatis modi libero quod quas
-                  cumque hic itaque nemo eaque impedit, similique ipsum quia,
-                  maxime quos ex qui!
+                  El candidato también va a tener la opción de cargar su
+                  curriculum de LinkedIn. Este curriculum será analizado por
+                  nuestro sistema y posteriormente, integrado al dashboard. Así,
+                  vas a poder comparar las reacciones de los candidatos con sus
+                  habilidades técnicas.
                 </p>
               </div>
             </div>
@@ -165,7 +167,7 @@ export const LandingPage = () => {
             <div class="invalid-feedback">Please choose a username.</div>
           </div>
           <div class="mb-3">
-          <label for="floatingTextarea2">Commentarios/Preguntas</label>
+            <label for="floatingTextarea2">Commentarios/Preguntas</label>
             <textarea
               class="form-control"
               placeholder="Escribí lo que sea, desde comentarios hasta preguntas!"

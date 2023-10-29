@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { Header } from "../Header/Header";
 import axios from "axios";
 import CryptoJS from "crypto-js";
+import { jwtDecode } from "jwt-decode";
 
 export const Createsearch = () => {
   const [name, setName] = useState("");
@@ -21,7 +22,7 @@ export const Createsearch = () => {
       name: name,
       description: descripcion,
       endDate: selectedDate,
-      userId: sessionStorage.getItem("userId"),
+      userId: jwtDecode(sessionStorage.getItem("token")).id,
     };
 
     var config = {
@@ -37,6 +38,11 @@ export const Createsearch = () => {
     axios(config).then((response) =>{
       const encryptedText = CryptoJS.AES.encrypt(response.data.id.toString(), import.meta.env.VITE_SECRET_KEY)
       navigate("/busquedas/preguntas/" + encodeURIComponent(encryptedText))
+    }).catch(function(error){
+      if (error.response.status === 403){
+        sessionStorage.clear();
+        navigate("/login")
+      }
     });
   }else {
     form.reportValidity();

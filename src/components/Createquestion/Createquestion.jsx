@@ -6,13 +6,14 @@ import { QuestionListCreate } from "./QuetionListCreate";
 import { ModalLoad } from "./ModalLoad";
 
 export const Createquestion = () => {
-    let navigate = useNavigate();
+  let navigate = useNavigate();
   const [selectedImage, setSelectedImage] = useState();
   const [showModalLoad, setShowModalLoad] = React.useState(false);
   const type = ["Opción 1", "Opción 2", "Opción 3", "Opción 4"];
   const [time, setTime] = useState("");
   const [name, setName] = useState("");
   const params = useParams();
+  const [tipo, setTipo] =  useState("");
   const [todos, setTodos] = useState([]);
   const [tipoActividad, setTipoActividad] = useState(
     "Seleccionar tipo de actividad"
@@ -25,7 +26,6 @@ export const Createquestion = () => {
   const handleTextareaChange = (event) => {
     setName(event.target.value);
   };
-
 
   function handleCreatequestion(e) {
     e.preventDefault();
@@ -43,6 +43,7 @@ export const Createquestion = () => {
             id: crypto.randomUUID(),
             name: name,
             time: time,
+            type: tipo,
             idSearch: idBusqueda,
           },
         ];
@@ -59,19 +60,16 @@ export const Createquestion = () => {
   console.log(todos);
 
   function handleLoadequestion(e) {
-
     e.preventDefault();
 
-    console.log("gasdfasdfasdf")
-
-    
+    console.log("gasdfasdfasdf");
 
     let data = todos;
 
-    data.forEach((todo) =>{
-        delete todo.id
-    })
-    console.log(data)
+    data.forEach((todo) => {
+      delete todo.id;
+    });
+    console.log(data);
 
     var config = {
       method: "post",
@@ -85,7 +83,12 @@ export const Createquestion = () => {
     };
     console.log(data);
     axios(config).then((response) => {
-        navigate(-1)
+      navigate(-1);
+    }).catch(function(error){
+      if (error.response.status === 403){
+        sessionStorage.clear();
+        navigate("/login")
+      }
     });
   }
 
@@ -95,20 +98,24 @@ export const Createquestion = () => {
     });
   }
 
-  function handleModalLoad(e){
-    e.preventDefault()
-    setShowModalLoad(true)
+  function handleModalLoad(e) {
+    e.preventDefault();
+    setShowModalLoad(true);
+  }
+
+  function onValueChange(e){
+    setTipo(e)
   }
 
   return (
     <>
-        <ModalLoad
-          show={showModalLoad}
-          onHide={() => setShowModalLoad(false)}
-          text="Cargar Preguntas"
-          title="!Cuidado! Cuando hagas click se van a subir las preguntas"
-          handleLoadequestion={handleLoadequestion}
-        />
+      <ModalLoad
+        show={showModalLoad}
+        onHide={() => setShowModalLoad(false)}
+        text="Cargar Preguntas"
+        title="!Cuidado! Cuando hagas click se van a subir las preguntas"
+        handleLoadequestion={handleLoadequestion}
+      />
 
       <div class="container text-center">
         <div class="d-inline-flex align-self-center card rounded pt-2 pb-2 ps-4 pe-4 mt-2">
@@ -137,6 +144,41 @@ export const Createquestion = () => {
               ></textarea>
             </div>
             <div>
+              <label for="exampleFormControlTextarea1" class="form-label">
+                Ingrese el tiempo de la pregutna
+              </label>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  value={"min"}
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                  checked={tipo === 'min'}
+                  onChange={(e) => setTipo(e.target.value)}
+                
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Minutos
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault2"
+                  value="sec"
+                  checked={tipo === 'sec'}
+                  onChange={(e) => setTipo(e.target.value)}
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Segundos
+                </label>
+              </div>
+              <p></p>
+            </div>
+            <div>
               <label
                 for="exampleFormControlInput1"
                 class="form-label"
@@ -146,28 +188,35 @@ export const Createquestion = () => {
               </label>
               <input
                 type="number"
-                min="1"
-                max="5"
                 class="form-control"
                 value={time}
                 onChange={(e) => {
-                  if (e.target.value > 5) {
-                    setTime(5);
-                  } else {
-                    setTime(e.target.value);
+                  if (tipo==="min"){
+                    if (e.target.value > 5) {
+                      setTime(5);
+                    } else {
+                      setTime(e.target.value);
+                    }
+                  }else{
+                    if(tipo==="sec"){
+                      if (e.target.value > 60*5) {
+                        setTime(60*5);
+                      } else {
+                        setTime(e.target.value);
+                      }
+                    }
                   }
+                  
                 }}
                 required
               />
             </div>
-            <div class="form-text" id="basic-addon4">
-              Min: 1 min & Max: 5 min
-            </div>
+            
           </form>
 
           <div className="container mb-3">
             <div className="row">
-              <form  className="form-inline">
+              <form className="form-inline">
                 <br />
                 <center>
                   <button
@@ -179,7 +228,7 @@ export const Createquestion = () => {
                   </button>
                   <button
                     onClick={handleModalLoad}
-                    class="btn btn-secondary ms-1"
+                    class="btn btn-success ms-1"
                   >
                     Finalizar la carga de preguntas
                   </button>

@@ -121,7 +121,11 @@ export const CandidateResponse = () => {
     if (cont < preguntas.length - 1) {
       setCont(cont + 1);
       setBtnState(true); //Cambio el estado del boton para que no se puede continuar a la siguiente pregunta
-      setTimerDuration(preguntas[cont+1].time*3)
+      if (preguntas[cont+1].type === "min"){
+        setTimerDuration(preguntas[cont+1].time*60) //+1 porque no se llega a actualizar el cont
+      }else{
+        setTimerDuration(preguntas[cont+1].time) //+1 porque no se llega a actualizar el cont
+      }
       setEndPregunta(true);
       setVideoData([]);
       setKey((prevKey) => prevKey + 1); //Reinicia el timer
@@ -159,8 +163,12 @@ export const CandidateResponse = () => {
 
   function handleComenzar(){
     console.log("empezo el cuestionario")
-    console.log("tiempo: " + preguntas[cont].time*3)
-    setTimerDuration(preguntas[cont].time*3)
+    console.log("tiempo: " + preguntas[cont].time*60)
+    if (preguntas[cont+1].type === "min"){
+      setTimerDuration(preguntas[cont].time*60) //+1 porque no se llega a actualizar el cont
+    }else{
+      setTimerDuration(preguntas[cont].time) //+1 porque no se llega a actualizar el cont
+    }
     setFirstTimer(true)
   }
 

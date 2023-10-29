@@ -5,6 +5,7 @@ import CryptoJS from "crypto-js";
 
 export const QuestionEdit = () => {
   const [name, setName] = useState();
+  const [tipo, setTipo] = useState();
   const [time, setTime] = useState();
 
   const params = useParams();
@@ -25,9 +26,15 @@ export const QuestionEdit = () => {
       .then(function (response) {
         console.log(response);
         setName(response.data.name);
+        setTipo(response.data.type);
         setTime(response.data.time);
       })
-      .catch(function (error) {});
+      .catch(function(error){
+        if (error.response.status === 403){
+          sessionStorage.clear();
+          navigate("/login")
+        }
+      });
   }, []);
 
   function handleSubmit(e) {
@@ -57,7 +64,12 @@ export const QuestionEdit = () => {
             .then(function (response) {
               console.log(response);
               navigate(-1)
-            })
+            }).catch(function(error){
+              if (error.response.status === 403){
+                sessionStorage.clear();
+                navigate("/login")
+              }
+            });
 
     } else {
       form.reportValidity();
@@ -88,6 +100,41 @@ export const QuestionEdit = () => {
               ></textarea>
             </div>
             <div>
+              <label for="exampleFormControlTextarea1" class="form-label">
+                Ingrese el tiempo de la pregutna
+              </label>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  value={"min"}
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                  checked={tipo === 'min'}
+                  onChange={(e) => setTipo(e.target.value)}
+                
+                />
+                <label class="form-check-label" for="flexRadioDefault1">
+                  Minutos
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault2"
+                  value="sec"
+                  checked={tipo === 'sec'}
+                  onChange={(e) => setTipo(e.target.value)}
+                />
+                <label class="form-check-label" for="flexRadioDefault2">
+                  Segundos
+                </label>
+              </div>
+              <p></p>
+            </div>
+            <div>
               <label
                 for="exampleFormControlInput1"
                 class="form-label"
@@ -97,22 +144,27 @@ export const QuestionEdit = () => {
               </label>
               <input
                 type="number"
-                min="1"
-                max="5"
                 class="form-control"
                 value={time}
                 onChange={(e) => {
-                  if (e.target.value > 5) {
-                    setTime(5);
-                  } else {
-                    setTime(e.target.value);
+                  if (tipo==="min"){
+                    if (e.target.value > 5) {
+                      setTime(5);
+                    } else {
+                      setTime(e.target.value);
+                    }
+                  }else{
+                    if(tipo==="sec"){
+                      if (e.target.value > 60*5) {
+                        setTime(60*5);
+                      } else {
+                        setTime(e.target.value);
+                      }
+                    }
                   }
                 }}
                 required
               />
-            </div>
-            <div class="form-text" id="basic-addon4">
-              Min: 1 min & Max: 5 min
             </div>
           </form>
           <div class="d-flex justify-content-center">
