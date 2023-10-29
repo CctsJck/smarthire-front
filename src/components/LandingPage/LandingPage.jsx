@@ -28,7 +28,7 @@ export const LandingPage = () => {
                 <div class="col-lg-20 mxauto">
                   <p class="lead mb-4">
                     {" "}
-                    {import.meta.env.VITE_SECRET_KEY}
+                    ¡Los procesos de seleccion nunca fueron tan faciles!
                   </p>
                   <div class="d-flex">
                     <button
