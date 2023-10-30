@@ -14,7 +14,7 @@ export const CandidateResponse = () => {
   const params = useParams();
   const [cantidad, setCantidad] = useState(0);
   const [cont, setCont] = useState(0);
-  const [timerDuration, setTimerDuration] = useState();
+  const [timerDuration, setTimerDuration] = useState(0);
   const [btnState, setBtnState] = useState(true); 
   const [endPregunta, setEndPregunta] = useState(true);
   const [key, setKey] = useState(0);
@@ -158,7 +158,7 @@ export const CandidateResponse = () => {
   function handleComenzar(){
     console.log("empezo el cuestionario")
     console.log("tiempo: " + preguntas[cont].time*60)
-    if (preguntas[cont+1].type === "min"){
+    if (preguntas[cont].type === "min"){
       setTimerDuration(preguntas[cont].time*60) 
     }else{
       setTimerDuration(preguntas[cont].time) 
