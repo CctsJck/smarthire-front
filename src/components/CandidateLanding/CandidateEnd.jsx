@@ -6,20 +6,14 @@ export const CandidateEnd = () => {
       <div class="container card shadow rounded w-50 text-center mt-5">
         <h1>Felicitaciones</h1>
         <p>
-          Ya finalizo su entrevista con Lorem ipsum dolor sit amet, consectetur
-          adipisicing elit. Accusantium qui ad praesentium debitis quo,
-          perspiciatis cumque dolorum animi, aut ipsa hic neque. Praesentium
-          atque dolorem dolorum ab suscipit obcaecati accusantium!
+          Ya finalizo su entrevista con exito
         </p>
-        <p>Ya puede sali de esta pagina</p>
+        <p class="fw-bold">Ya puede sali de esta pagina</p>
       </div>
       <div class="container card shadow rounded w-50 text-center mt-2 pb-3">
         <p>
           Si tuvo un problema o tiene informacion que cree que nos podria hacer
-          mejorar la informacion nos puede contactar con Lorem ipsum dolor sit
-          amet, consectetur adipisicing elit. Accusantium qui ad praesentium
-          debitis quo, perspiciatis cumque dolorum animi, aut ipsa hic neque.
-          Praesentium atque dolorem dolorum ab suscipit obcaecati accusantium!
+          mejorar no dude en contactarnos
         </p>
         <div class="row">
           <div class="col">
