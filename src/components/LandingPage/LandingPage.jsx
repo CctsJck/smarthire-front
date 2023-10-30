@@ -21,7 +21,7 @@ export const LandingPage = () => {
         style={{ backgroundColor: "#97e184", height: "30%" }}
       >
         <div className="container" style={{ backgroundColor: "#97e184" }}>
-          <div class="col-md-12 d-flex justify-content-start">
+          <div class="col-md-12 d-flex justify-content-start mt-3 mb-3">
             <div class="col-md-6 d-flex justify-content-start py-5">
               <div>
                 <div class="col-lg-20 mxauto">
@@ -61,7 +61,7 @@ export const LandingPage = () => {
           </div>
         </div>
       </div>
-      <div className="col-md-12 d-flex my-5" style={{ background: "#ffffff" }}>
+      <div className="col-md-12 d-flex" style={{ background: "#ffffff" }}>
         <div className="container mt-5" style={{ background: "#ffffff" }}>
           <div className="col-md-12 d-flex card shadow">
             <div className="d-flex align-items-center">
