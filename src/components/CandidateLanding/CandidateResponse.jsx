@@ -51,24 +51,6 @@ export const CandidateResponse = () => {
   }, [timerDuration]);
 
   useEffect(() => {
-    let idBusqueda = CryptoJS.AES.decrypt(
-      params.idBusqueda,
-      import.meta.env.VITE_SECRET_KEY
-    ).toString(CryptoJS.enc.Utf8);
-    let config = {
-      method: "get",
-      url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`,
-    };
-
-    axios(config)
-      .then(function (response) {
-        console.log(response.data);
-        setBusqueda(response.data.name);
-        setPreguntas(response.data.questions);
-      })
-      .catch(function (error) {
-        setSuccess("No Tiene preguntas");
-      });
     startVideo();
     videoRef &&
       Promise.all([
@@ -107,7 +89,26 @@ export const CandidateResponse = () => {
       });
   };
 
+  useEffect(() => {
+    let idBusqueda = CryptoJS.AES.decrypt(
+      params.idBusqueda,
+      import.meta.env.VITE_SECRET_KEY
+    ).toString(CryptoJS.enc.Utf8);
+    let config = {
+      method: "get",
+      url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}`,
+    };
 
+    axios(config)
+      .then(function (response) {
+        console.log(response.data);
+        setBusqueda(response.data.name);
+        setPreguntas(response.data.questions);
+      })
+      .catch(function (error) {
+        setSuccess("No Tiene preguntas");
+      });
+  }, []);
 
   function handleClick(e) {
     e.preventDefault();
