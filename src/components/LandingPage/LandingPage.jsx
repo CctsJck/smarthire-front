@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-scroll";
 import "./LandingPage.css";
 import { Header } from "../Header/Header";
-import logo from "../../assets/Smarthire.png";
+import logo from "../../assets/EmotiHire.png";
 import candidato from "../../assets/landing page candidato.avif";
 import candidata from "../../assets/pexels-artem-podrez-4492161.jpg";
 import candidata2 from "../../assets/pexels-yan-krukau-4458421.jpg";
@@ -58,7 +58,7 @@ export const LandingPage = () => {
               </div>
             </div>
             <div class="col-md-6 d-flex justify-content-center align-items-center">
-              <img src={logo} className="imagen" style={{}} />
+              <img src={logo} className="imagen mt-5" style={{width: "380px", height: "250px"}} />
             </div>
           </div>
         </div>
