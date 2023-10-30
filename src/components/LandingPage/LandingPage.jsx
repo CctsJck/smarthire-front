@@ -24,12 +24,10 @@ export const LandingPage = () => {
           <div class="col-md-12 d-flex justify-content-start">
             <div class="col-md-6 d-flex justify-content-start py-5">
               <div>
-                <h1 class="display-5 fw-bold">EmotiHire</h1>
                 <div class="col-lg-20 mxauto">
-                  <p class="lead mb-4">
-                    {" "}
+                  <h2 class="mb-4 me-5">
                     ¡Los procesos de seleccion nunca fueron tan faciles!
-                  </p>
+                  </h2>
                   <div class="d-flex">
                     <button
                       type="button"
@@ -57,8 +55,8 @@ export const LandingPage = () => {
                 </div>
               </div>
             </div>
-            <div class="col-md-6 d-flex justify-content-center align-items-center">
-              <img src={logo} className="imagen mt-5" style={{width: "380px", height: "250px"}} />
+            <div class="col-6 d-flex m-2 justify-content-center">
+              <img src={logo}/>
             </div>
           </div>
         </div>
