@@ -40,7 +40,7 @@ export const Header = () => {
                     fill="currentColor"
                     class="bi bi-list"
                     viewBox="0 0 16 16"
-                    onClick={() => console.log("hola")}
+                    onClick={() => console.log("")}
                     >
                     <path
                         fill-rule="evenodd"

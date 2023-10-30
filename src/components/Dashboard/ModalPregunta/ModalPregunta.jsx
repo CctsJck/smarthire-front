@@ -3,7 +3,6 @@ import { Modal,Button } from 'react-bootstrap'
 
 
 export const ModalPregunta = (props) => {
-    console.log(props)
 
 
     return(

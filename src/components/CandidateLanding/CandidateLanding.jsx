@@ -11,26 +11,7 @@ export const CandidateLanding = () => {
   const [busqueda, setBusqueda] = useState("");
   const params = useParams();
   let navigate = useNavigate();
-  //sessionStorage.setItem('BusquedaID', token.split(' ')[1]); //TODO Poner el id de La Busqueda
 
-  /* useEffect(() => {
-        let config = {
-            method: 'get',
-            url: `http://localhost:5000/search/${params.idBusqueda}`, //AGregar la query de busqueda, ver el tema del TOKEN
-        };
-
-        axios(config)
-        .then(function(response){
-            console.log(response)
-
-        })
-        .catch(function (error){
-
-            setSuccess("No Tiene preguntas")
-        })
-        console.log(params.idBusqueda)
-
-    },[])*/
 
   return (
     <>

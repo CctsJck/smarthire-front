@@ -20,7 +20,6 @@ export const Singup = () => {
     const form = document.getElementById("myform");
 
     if (form.checkValidity()) {
-      console.log("Hola");
       var data = {
         name: name,
         surename: surname,
@@ -44,8 +43,6 @@ export const Singup = () => {
         })
 
         .catch(function (error) {
-          console.log(error);
-          console.log(error.response.data.message);
           if (
             error.response.data.message == "El nombre de usuario no es unico"
           ) {

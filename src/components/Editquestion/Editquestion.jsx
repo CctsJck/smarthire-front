@@ -56,10 +56,9 @@ export const Editquestion = () =>{
 
 
         };
-        console.log(data)
         axios(config)
         .then((response) => 
-            console.log(response)
+            console.log("")
         ).catch(function(error){
             if (error.response.status === 403){
               sessionStorage.clear();

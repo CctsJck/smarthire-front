@@ -18,7 +18,6 @@ export const Question = () => {
 
   useEffect(() => {
     let idBusqueda = CryptoJS.AES.decrypt(params.searchId, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8);
-    console.log(idBusqueda)
     let config = {
       method: "get",
       url: `${import.meta.env.VITE_BACK_URL}search/${idBusqueda}` /*ver con gonza (Agregar parametro Route)*/,
@@ -29,7 +28,6 @@ export const Question = () => {
 
     axios(config)
       .then(function (response) {
-        console.log(response.data.questions);
         setQuestions(response.data.questions);
       })
       .catch(function (error) {
@@ -43,13 +41,11 @@ export const Question = () => {
   }, []);
 
   function borrarQuestion(id) {
-    console.log("adfasf");
     setIdToDelete(id);
     setShowModal(true);
   }
 
   function handleBorrado(id) {
-    console.log("Id de handle borrado:" + id);
 
     let config = {
       method: "delete",
@@ -71,7 +67,6 @@ export const Question = () => {
   }
 
   function verResultados(id) {
-    console.log("entre a los resultados");
     
   }
 

@@ -24,7 +24,6 @@ export const QuestionEdit = () => {
     };
     axios(config)
       .then(function (response) {
-        console.log(response);
         setName(response.data.name);
         setTipo(response.data.type);
         setTime(response.data.time);
@@ -63,7 +62,6 @@ export const QuestionEdit = () => {
           };
           axios(config)
             .then(function (response) {
-              console.log(response);
               navigate(-1)
             }).catch(function(error){
               if (error.response.status === 403){

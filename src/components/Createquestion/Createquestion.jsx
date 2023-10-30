@@ -58,19 +58,19 @@ export const Createquestion = () => {
     }
   }
 
-  console.log(todos);
+ 
 
   function handleLoadequestion(e) {
     e.preventDefault();
 
-    console.log("gasdfasdfasdf");
+  
 
     let data = todos;
 
     data.forEach((todo) => {
       delete todo.id;
     });
-    console.log(data);
+    
 
     var config = {
       method: "post",
@@ -82,7 +82,7 @@ export const Createquestion = () => {
       },
       data: data,
     };
-    console.log(data);
+    
     axios(config).then((response) => {
       navigate("/misbusquedas")
     }).catch(function(error){
