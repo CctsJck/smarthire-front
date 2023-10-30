@@ -40,7 +40,8 @@ export const Busqueda = () => {
       })
       .catch(function (error) {
         if (error.response.status === 404) setSuccess("No Tiene busquedas");
-        else {
+        else if (error.response.status===403){
+          sessionStorage.clear()
           navigate("/login");
         }
       });
