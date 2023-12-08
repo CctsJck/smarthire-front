@@ -86,7 +86,7 @@ export const Dashboard = () => {
 
     axios(config)
       .then(function (response) {
-        setBusqueda(response.data)
+        setBusqueda(response.data);
         setSearch("");
       })
       .catch(function (error) {
@@ -103,18 +103,17 @@ export const Dashboard = () => {
     }
   }, [busqueda]);
 
+  useEffect(() => {
+    console.log("resultados");
+    console.log(resultados);
+    console.log(resultadosFiltrados);
+  }, [resultados]);
 
-  useEffect(()=>{
-    console.log("resultados")
-    console.log(resultados)
-    console.log(resultadosFiltrados)
-  },[resultados])
-
-  useEffect(()=>{
-    console.log("resultadosfiltrados")
-    console.log(resultados)
-    console.log(resultadosFiltrados)
-  },[resultadosFiltrados])
+  useEffect(() => {
+    console.log("resultadosfiltrados");
+    console.log(resultados);
+    console.log(resultadosFiltrados);
+  }, [resultadosFiltrados]);
 
   function handlePreguntaSelect(pregunta) {
     let config = {
@@ -127,8 +126,9 @@ export const Dashboard = () => {
 
     axios(config)
       .then(function (response) {
-        setResultadosFiltrados(response.data)
-        setResultados(response.data)
+        console.log(response);
+        setResultadosFiltrados(response.data);
+        setResultados(response.data);
       })
       .catch(function (error) {
         if (error.response.status === 403) {
@@ -190,7 +190,11 @@ export const Dashboard = () => {
       setResultadosFiltrados(resultados);
     }
     setResultadosFiltrados(
-      resultados.filter((resultado) => resultado.candidate.cvResponse.cv.toLowerCase().includes(e.toLowerCase()))
+      resultados.filter((resultado) =>
+        resultado.candidate.cvResponse.cv
+          .toLowerCase()
+          .includes(e.toLowerCase())
+      )
     );
     console.log(
       resultados.filter((resultado) =>
@@ -449,9 +453,14 @@ export const Dashboard = () => {
                         </button>
                       </td>
                       <td className={Habilidades ? "" : "hidden"}>
-                        {JSON.parse(
-                          result.candidate.cvResponse.cv
-                        ).habilidades[0].skills.join(", ")}
+                        {JSON.parse(result.candidate.cvResponse.cv).habilidades
+                          .length === 0 ? (
+                          <p>---</p>
+                        ) : (
+                          JSON.parse(
+                            result.candidate.cvResponse.cv
+                          ).habilidades[0].skills.join(", ")
+                        )}
                       </td>
                     </tr>
                   ))}
