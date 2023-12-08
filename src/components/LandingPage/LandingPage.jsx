@@ -132,7 +132,7 @@ export const LandingPage = () => {
           </div>
         </div>
       </div>
-      <div class="container card shadow mb-4">
+      <div class="container card shadow mb-4 mt-3" id="seccionDestino">
         <form class="needs-validation" id="myform">
           <div class="mb-3">
             <label for="nameID" class="form-label">
