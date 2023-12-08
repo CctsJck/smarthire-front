@@ -27,24 +27,19 @@ export const Dashboard = () => {
   const [Sorpresa, setSorpresa] = useState(true);
   const [Neutral, setNeutral] = useState(true);
 
+  const [Experiencia, setExperiencia] = useState(false);
+  const [showExperienciaModal, setShowExperienciaModal] = useState(false);
+  const [experienciaObj, setExperienciaObj] = useState();
+  const [candidateSelect, setCandidateSelect] = useState();
 
-  const [Experiencia,setExperiencia] = useState(false)
-  const [showExperienciaModal,setShowExperienciaModal]= useState(false);
-  const [experienciaObj,setExperienciaObj]=useState();
-  const [candidateSelect,setCandidateSelect]=useState();
+  const [Educacion, setEducacion] = useState(false);
+  const [showEducacionModal, setShowEducacionModal] = useState(false);
+  const [educacionObj, setEducacionObj] = useState();
 
+  const [Habilidades, setHabilidades] = useState(false);
 
-  const [Educacion,setEducacion] = useState(false)
-  const [showEducacionModal,setShowEducacionModal]= useState(false);
-  const [educacionObj,setEducacionObj]=useState();
-
-
-  const [Habilidades,setHabilidades] = useState(false)
-
-
-
-
-
+  const [search, setSearch] = useState("");
+  const [resultadosFiltrados, setResultadosFiltrados] = useState(resultados);
 
   const sorting = (col) => {
     if (order === "ASC") {
@@ -91,12 +86,13 @@ export const Dashboard = () => {
 
     axios(config)
       .then(function (response) {
-        setBusqueda(response.data);
+        setBusqueda(response.data)
+        setSearch("");
       })
-      .catch(function(error){
-        if (error.response.status === 403){
+      .catch(function (error) {
+        if (error.response.status === 403) {
           sessionStorage.clear();
-          navigate("/login")
+          navigate("/login");
         }
       });
   }, []);
@@ -106,6 +102,19 @@ export const Dashboard = () => {
       setBandera(true);
     }
   }, [busqueda]);
+
+
+  useEffect(()=>{
+    console.log("resultados")
+    console.log(resultados)
+    console.log(resultadosFiltrados)
+  },[resultados])
+
+  useEffect(()=>{
+    console.log("resultadosfiltrados")
+    console.log(resultados)
+    console.log(resultadosFiltrados)
+  },[resultadosFiltrados])
 
   function handlePreguntaSelect(pregunta) {
     let config = {
@@ -118,12 +127,13 @@ export const Dashboard = () => {
 
     axios(config)
       .then(function (response) {
-        setResultados(response.data);
+        setResultadosFiltrados(response.data)
+        setResultados(response.data)
       })
-      .catch(function(error){
-        if (error.response.status === 403){
+      .catch(function (error) {
+        if (error.response.status === 403) {
           sessionStorage.clear();
-          navigate("/login")
+          navigate("/login");
         }
       });
 
@@ -134,9 +144,9 @@ export const Dashboard = () => {
     setTristeza(true);
     setSorpresa(true);
     setNeutral(true);
-    setExperiencia(false)
-    setEducacion(false)
-    setHabilidades(false)
+    setExperiencia(false);
+    setEducacion(false);
+    setHabilidades(false);
   }
 
   function handleFiltroSelect(
@@ -160,70 +170,99 @@ export const Dashboard = () => {
     setNeutral(neutralChecked);
     setExperiencia(experienciaChecked);
     setEducacion(educacionChecked);
-    setHabilidades(habilidadesChecked)
+    setHabilidades(habilidadesChecked);
   }
 
-  function handleExperencia(experiencia,candidate){
-    setExperienciaObj(experiencia)
-    setCandidateSelect(candidate)
-    setShowExperienciaModal(true)
-    
+  function handleExperencia(experiencia, candidate) {
+    setExperienciaObj(experiencia);
+    setCandidateSelect(candidate);
+    setShowExperienciaModal(true);
   }
 
-  function handleEducacion(educacion,candidate){
-    setEducacionObj(educacion)
-    setCandidateSelect(candidate)
-    setShowEducacionModal(true)
+  function handleEducacion(educacion, candidate) {
+    setEducacionObj(educacion);
+    setCandidateSelect(candidate);
+    setShowEducacionModal(true);
+  }
+
+  function handleFilter(e) {
+    if (e === "" || search === "") {
+      setResultadosFiltrados(resultados);
+    }
+    setResultadosFiltrados(
+      resultados.filter((resultado) => resultado.candidate.cvResponse.cv.toLowerCase().includes(e.toLowerCase()))
+    );
+    console.log(
+      resultados.filter((resultado) =>
+        resultado.candidate.name.toLowerCase().includes(e.toLowerCase())
+      )
+    );
   }
 
   return (
     <>
-    <ModalExperiencia
+      <ModalExperiencia
         show={showExperienciaModal}
         onHide={() => setShowExperienciaModal(false)}
         candidato={candidateSelect}
-        cv={experienciaObj}/>
+        cv={experienciaObj}
+      />
 
-<ModalEducacion
+      <ModalEducacion
         show={showEducacionModal}
         onHide={() => setShowEducacionModal(false)}
         candidato={candidateSelect}
-        cv={educacionObj}/>
+        cv={educacionObj}
+      />
 
-      <div className="d-flex justify-content-start align-items-center mx-5 mt-4">
-        <div className="col-md-10 d-flex mx-5 mt-4">
+      <div className="container text-center">
+        <div className="d-inline-flex card rounded pt-2 pb-2 ps-4 pe-4 mt-2 mb-2">
           <h1 className="mx-5">{busqueda.name}</h1>
         </div>
       </div>
-      <div className="d-flex justify-content-center align-items-center mx-2">
-        <div className="col-md-10 d-flex card">
-          <h3 className="d-flex justify-content-center my-4">
+      <div class="container">
+        <div class="card text-center ps-2 pe-2 mt-1">
+          <h3 class="mt-2 mb-2">
             Elegir pregunta la pregunta a analizar, para ver las respuestas de
             los candidatos
           </h3>
-          <div className="d-flex justify-content-center align-items-center">
-            <div className="col-md-3 d-flex mb-4">
-              <button
-                type="button"
-                className="btn btn-primary custom-btn mx-5 my-3"
-                onClick={elegirPregunta}
-              >
-                Busca la pregunta que quieras analizar
-              </button>
-            </div>
+          <div class="d-flex justify-content-center">
+            <button
+              type="button"
+              class="btn btn-primary mt-2 mb-2"
+              onClick={elegirPregunta}
+            >
+              Seleccione la pregunta que quiere analizar
+            </button>
           </div>
         </div>
       </div>
-      <div className="d-flex justify-content-center mx-2">
-        <div className="col-md-10 d-flex mt-2 card align-items-center">
-          <h3 className="d-flex justify-content-center mt-4">Filtros</h3>
-          <button
-            type="button"
-            className="btn btn-primary custom-btn mx-2 my-1"
-            onClick={aplicarFiltro}
-          >
-            +
-          </button>
+
+      <div class="container ">
+        <div class="card ps-5 pe-5 mt-3">
+          <div class="row">
+            <div class="col-6">
+              <h4 class="mt-2 mb-2">Seleccione un Filtro(Opcional)</h4>
+            </div>
+            <div class="col-2 text-center">
+              <button
+                type="button"
+                className="btn btn-primary mt-2 mb-2"
+                onClick={aplicarFiltro}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  fill="currentColor"
+                  class="bi bi-funnel-fill"
+                  viewBox="0 0 16 16"
+                >
+                  <path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z" />
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -257,11 +296,33 @@ export const Dashboard = () => {
         Habilidades={Habilidades}
       />
 
+      <div class="container">
+        <div class="card ps-5 pe-5 mt-1">
+          <div class="row">
+            <div class="col-6">
+              <h4 class="mt-2 mb-2">Buscar</h4>
+            </div>
+            <div class="col-2 mt-2 mb-2">
+              <input
+                type="text"
+                class="form-control"
+                id="surnameID"
+                placeholder="Ingrese una palabra clave"
+                value={search}
+                onChange={(e) => {
+                  setSearch(e.target.value);
+                  handleFilter(e.target.value);
+                }}
+              />
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="tabla-resultados">
-        {resultados.length > 0 ? (
-          <div className="d-flex justify-content-center align-items-center mx-2">
-            <div className="col-md-10 d-flex mt-3 card">
+        <div className="container">
+          <div className="card text-center d-flex mt-3">
+            {resultadosFiltrados.length > 0 ? (
               <table>
                 <thead>
                   <tr>
@@ -314,23 +375,22 @@ export const Dashboard = () => {
                     >
                       Experiencia
                     </th>
-                    <th 
-                    onClick={() => sorting("educacion")}
+                    <th
+                      onClick={() => sorting("educacion")}
                       className={Educacion ? "" : "hidden"}
-                      >
+                    >
                       Educacion
                     </th>
-                    <th 
-                    onClick={() => sorting("habilidades")}
+                    <th
+                      onClick={() => sorting("habilidades")}
                       className={Habilidades ? "text-center" : "hidden"}
-                      >
+                    >
                       Habilidades
                     </th>
-
                   </tr>
                 </thead>
                 <tbody>
-                  {resultados.map((result) => (
+                  {resultadosFiltrados.map((result) => (
                     <tr key={result.id}>
                       <td>
                         {result.candidate.name +
@@ -359,27 +419,52 @@ export const Dashboard = () => {
                         {(result.neutral * 100).toFixed(2)}%
                       </td>
                       <td className={Experiencia ? "" : "hidden"}>
-                        <button class="btn btn-info" onClick={() => handleExperencia(JSON.parse(result.candidate.cvResponse.cv),result.candidate.name+" "+result.candidate.surename)}>Ver</button>
+                        <button
+                          class="btn btn-info"
+                          onClick={() =>
+                            handleExperencia(
+                              JSON.parse(result.candidate.cvResponse.cv),
+                              result.candidate.name +
+                                " " +
+                                result.candidate.surename
+                            )
+                          }
+                        >
+                          Ver
+                        </button>
                       </td>
                       <td className={Educacion ? "" : "hidden"}>
-                      <button class="btn btn-info" onClick={() => handleEducacion(JSON.parse(result.candidate.cvResponse.cv),result.candidate.name+" "+result.candidate.surename)}>Ver</button>
+                        <button
+                          class="btn btn-info"
+                          onClick={() =>
+                            handleEducacion(
+                              JSON.parse(result.candidate.cvResponse.cv),
+                              result.candidate.name +
+                                " " +
+                                result.candidate.surename
+                            )
+                          }
+                        >
+                          Ver
+                        </button>
                       </td>
                       <td className={Habilidades ? "" : "hidden"}>
-                        {JSON.parse(result.candidate.cvResponse.cv).habilidades[0].skills.join(', ')}
+                        {JSON.parse(
+                          result.candidate.cvResponse.cv
+                        ).habilidades[0].skills.join(", ")}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-            </div>
+            ) : (
+              <p class="fw-bold">
+                {" "}
+                La pregunta seleccionada no tiene resultados todavia
+              </p>
+            )}
           </div>
-        ) : (
-          <div className="d-flex justify-content-center align-items-center mx-2">
-            <div className="col-md-10 d-flex mt-2 card text-center">
-              <p class='fw-bold'> La pregunta seleccionada no tiene resultados todavia</p>
-            </div>{" "}
-          </div>
-        )}
+        </div>
       </div>
     </>
   );
