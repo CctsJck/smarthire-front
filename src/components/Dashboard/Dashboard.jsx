@@ -442,9 +442,14 @@ export const Dashboard = () => {
                         </button>
                       </td>
                       <td className={Habilidades ? "" : "hidden"}>
-                        {JSON.parse(
-                          result.candidate.cvResponse.cv
-                        ).habilidades[0].skills.join(", ")}
+                        {JSON.parse(result.candidate.cvResponse.cv).habilidades
+                          .length === 0 ? (
+                          <p>---</p>
+                        ) : (
+                          JSON.parse(
+                            result.candidate.cvResponse.cv
+                          ).habilidades[0].skills.join(", ")
+                        )}
                       </td>
                     </tr>
                   ))}
