@@ -209,25 +209,28 @@ export const Dashboard = () => {
         cv={educacionObj}
       />
 
-      <div className="container text-center">
+<div className="container text-center">
         <div className="d-inline-flex card rounded pt-2 pb-2 ps-4 pe-4 mt-2 mb-2">
           <h1 className="mx-5">{busqueda.name}</h1>
         </div>
       </div>
       <div class="container">
-        <div class="card text-center ps-2 pe-2 mt-1">
+        <div class="card ps-5 pe-5 mt-1">
+        <div class ="row">
+          <div class ="col-6">
           <h3 class="mt-2 mb-2">
-            Elegir pregunta la pregunta a analizar, para ver las respuestas de
-            los candidatos
+            Elegir pregunta la pregunta a analizar
           </h3>
-          <div class="d-flex justify-content-center">
+          </div>
+          <div class="col-4">
             <button
               type="button"
-              class="btn btn-primary mt-2 mb-2"
+              class="btn btn-primary mt-2 mb-2 w-100"
               onClick={elegirPregunta}
             >
               Seleccione la pregunta que quiere analizar
             </button>
+          </div>
           </div>
         </div>
       </div>
@@ -238,7 +241,7 @@ export const Dashboard = () => {
             <div class="col-6">
               <h4 class="mt-2 mb-2">Seleccione un Filtro(Opcional)</h4>
             </div>
-            <div class="col-2 text-center">
+            <div class="col-4 text-center">
               <button
                 type="button"
                 className="btn btn-primary mt-2 mb-2"
@@ -271,6 +274,7 @@ export const Dashboard = () => {
       ) : (
         <></>
       )}
+
       <ModalFiltro
         show={showModalFiltro}
         onHide={() => setShowModalFiltro(false)}
@@ -295,7 +299,7 @@ export const Dashboard = () => {
             <div class="col-6">
               <h4 class="mt-2 mb-2">Buscar</h4>
             </div>
-            <div class="col-2 mt-2 mb-2">
+            <div class="col-4 mt-2 mb-2">
               <input
                 type="text"
                 class="form-control"

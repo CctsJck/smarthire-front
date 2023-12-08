@@ -26,7 +26,7 @@ export const LandingPage = () => {
               <div>
                 <div class="col-lg-20 mxauto">
                   <h2 class="mb-4 me-5">
-                    ¡Los procesos de seleccion nunca fueron tan faciles!
+                    ¡Los procesos de selección nunca fueron tan faciles!
                   </h2>
                   <div class="d-flex">
                     <button
