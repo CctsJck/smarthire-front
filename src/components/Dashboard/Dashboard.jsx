@@ -41,21 +41,21 @@ export const Dashboard = () => {
 
   const sorting = (col) => {
     if (order === "ASC") {
-      const sorted = [...resultados].sort((a, b) =>
+      const sorted = [...resultadosFiltrados].sort((a, b) =>
         a[col].toString().toLowerCase() > b[col].toString().toLowerCase()
           ? 1
           : -1
       );
-      setResultados(sorted);
+      setResultadosFiltrados(sorted);
       setOrder("DSC");
     }
     if (order === "DSC") {
-      const sorted = [...resultados].sort((a, b) =>
+      const sorted = [...resultadosFiltrados].sort((a, b) =>
         a[col].toString().toLowerCase() < b[col].toString().toLowerCase()
           ? 1
           : -1
       );
-      setResultados(sorted);
+      setResultadosFiltrados(sorted);
       setOrder("ASC");
     }
   };
