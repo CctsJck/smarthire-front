@@ -146,7 +146,7 @@ export const Createquestion = () => {
             </div>
             <div>
               <label for="exampleFormControlTextarea1" class="form-label">
-                Ingrese el tiempo de la pregutna
+                Ingrese el tiempo de la pregunta
               </label>
               <div class="form-check">
                 <input
