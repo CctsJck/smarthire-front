@@ -25,7 +25,7 @@ export const ModalLoad = (props) => {
       <Button onClick={props.onHide} className="btn-danger">Cancelar</Button>
 
 
-<Button className="btn-success" onClick = {props.handleLoadequestion} >Crear</Button>
+<Button className="btn-success" onClick = {props.handleLoadequestion} >Cargar</Button>
       </Modal.Footer>
     </Modal>
   );

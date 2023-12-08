@@ -4,16 +4,16 @@ export const CandidateEnd = () => {
   return (
     <>
       <div class="container card shadow rounded w-50 text-center mt-5">
-        <h1>Felicitaciones</h1>
+        <h1>¡Felicitaciones!</h1>
         <p>
-          Ya finalizo su entrevista con exito
+          Ya finalizó su entrevista con éxito
         </p>
-        <p class="fw-bold">Ya puede sali de esta pagina</p>
+        <p class="fw-bold">Ya puede salir de esta página</p>
       </div>
       <div class="container card shadow rounded w-50 text-center mt-2 pb-3">
         <p>
-          Si tuvo un problema o tiene informacion que cree que nos podria hacer
-          mejorar no dude en contactarnos
+          Si tuvo un problema o tiene información que cree que nos podría hacer
+          mejorar no dude en contactarnos.
         </p>
         <div class="row">
           <div class="col">

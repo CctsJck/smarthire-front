@@ -110,7 +110,7 @@ export const Header = () => {
                 Mis busquedas
               </a>
               <a href="#" onClick={() => navigate("/crearbusqueda")}>
-                Crear busqueda
+                Crear búsqueda
               </a>
               <a href="#" onClick={handleCerrarSesion}>
                 Cerrar Sesión

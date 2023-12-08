@@ -28,6 +28,13 @@ export const ModalStart = (props) => {
                 No se puede terminar antes, solo se podrá avanzar cuando termine
                 el timer
               </li>
+              <li class= "fw-bold">
+                Recuerde realizar la entrevista en un lugar iluminado
+              </li>
+              
+              <li class= "fw-bold">
+              Por favor, asegúrate de mantener tu rostro centrado en la pantalla
+              </li>
             </ul>
           </div>
           <div>

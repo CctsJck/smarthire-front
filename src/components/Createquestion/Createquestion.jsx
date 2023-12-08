@@ -113,8 +113,8 @@ export const Createquestion = () => {
       <ModalLoad
         show={showModalLoad}
         onHide={() => setShowModalLoad(false)}
-        text="Cargar Preguntas"
-        title="!Cuidado! Cuando hagas click se van a subir las preguntas"
+        text="Estas seguro que quiere cargar estas preguntas a la búsqueda"
+        title="¡Cuidado! Cuando hagas clic se van a subir las preguntas"
         handleLoadequestion={handleLoadequestion}
       />
 
@@ -185,7 +185,7 @@ export const Createquestion = () => {
                 class="form-label"
                 style={{ textAlign: "left" }}
               >
-                Tiempo para contestar (minutos)
+                Tiempo para contestar
               </label>
               <input
                 type="number"

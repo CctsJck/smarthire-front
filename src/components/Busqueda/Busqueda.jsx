@@ -113,7 +113,7 @@ export const Busqueda = () => {
           show={showModalDelete}
           onHide={() => setShowModalDelete(false)}
           text="Tenga en cuenta que una vez eliminada los cambios son irreversibles!"
-          title="¿Desea eliminar la busqueda?"
+          title="¿Desea eliminar la búsqueda?"
           id={idToDelete}
           handleBorrado={handleBorrado}
         />
@@ -121,7 +121,7 @@ export const Busqueda = () => {
           show={showModalShare}
           onHide={() => setShowModalShare(false)}
           text="Este es link para compartir con los candidatos"
-          title="¡Compartí esta busqueda!"
+          title="¡Compartí esta búsqueda!"
           id={idToShare}
         />
 

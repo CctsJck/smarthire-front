@@ -79,14 +79,14 @@ export const Createsearch = () => {
             <label for="exampleFormControlTextarea1" class="form-label">
               Descripción
             </label>
-            <input
+            <textarea
               class="form-control"
               id="descripcion"
               rows="3"
               value={descripcion}
               onChange={(e) => setDescripcion(e.target.value)}
               required
-            ></input>
+            ></textarea>
           </div>
           <div class="mb-3">
             <label for="exampleFormControlTextarea1" class="form-label mt-1">
@@ -110,7 +110,7 @@ export const Createsearch = () => {
               onClick={handleCreatesearch}
               class="btn btn-primary"
             >
-              Crear busqueda
+              Crear búsqueda
             </button>
           </div>
         </div>
